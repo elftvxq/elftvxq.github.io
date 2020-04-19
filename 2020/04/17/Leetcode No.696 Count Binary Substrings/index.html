@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 4.2.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="iHV2BwjIPT8Ar1GUkqkrT1P1Ee2b28tleUMgSp-WSfc">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"elftvxq.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="題號：No.696 類型：字串 String 難度：簡單">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Leetcode No.696 Count Binary Substrings 📒">
+<meta property="og:url" content="https://elftvxq.github.io/2020/04/17/Leetcode%20No.696%20Count%20Binary%20Substrings/index.html">
+<meta property="og:site_name" content="真露島(๑´ㅂ&#96;๑)">
+<meta property="og:description" content="題號：No.696 類型：字串 String 難度：簡單">
+<meta property="og:locale" content="zh_TW">
+<meta property="article:published_time" content="2020-04-17T15:20:49.000Z">
+<meta property="article:modified_time" content="2020-04-18T11:09:41.841Z">
+<meta property="article:author" content="Emma Shih">
+<meta property="article:tag" content="JavaScript">
+<meta property="article:tag" content="leetcode">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://elftvxq.github.io/2020/04/17/Leetcode%20No.696%20Count%20Binary%20Substrings/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-TW'
+  };
+</script>
+
+  <title>Leetcode No.696 Count Binary Substrings 📒 | 真露島(๑´ㅂ`๑)</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163882935-1"></script>
+    <script>
+      if (CONFIG.hostname === location.hostname) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-163882935-1');
+      }
+    </script>
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切換導航欄">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">真露島(๑´ㅂ`๑)</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">嗨！我是艾瑪，半路轉行的北漂前端工程師，標題是動森島名!XD</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首頁</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>關於</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>標籤</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分類</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>歸檔</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://elftvxq.github.io/2020/04/17/Leetcode%20No.696%20Count%20Binary%20Substrings/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Emma Shih">
+      <meta itemprop="description" content="喜歡閱讀、聽音樂和看各種劇。最近的嗜好是撿樹枝和運動放鬆(空)。這裡紀錄學習網頁開發和程式的相關知識以及遇到的疑難雜症。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="真露島(๑´ㅂ`๑)">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Leetcode No.696 Count Binary Substrings 📒
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-04-17 23:20:49" itemprop="dateCreated datePublished" datetime="2020-04-17T23:20:49+08:00">2020-04-17</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新於</span>
+                <time title="修改時間：2020-04-18 19:09:41" itemprop="dateModified" datetime="2020-04-18T19:09:41+08:00">2020-04-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/leetcode-%E5%88%B7%E9%A1%8C/" itemprop="url" rel="index"><span itemprop="name">leetcode 刷題</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/04/17/Leetcode%20No.696%20Count%20Binary%20Substrings/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/17/Leetcode No.696 Count Binary Substrings/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <blockquote>
+<p>題號：No.696</p>
+<p>類型：字串 String</p>
+<p>難度：簡單</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="題目"><a class="header-anchor" href="#題目">¶</a>題目</h3>
+<p>Give a string s, count the number of non-empty (contiguous) substrings that have the same number of 0’s and 1’s, and all the 0’s and all the 1’s in these substrings are grouped consecutively.</p>
+<p>Substrings that occur multiple times are counted the number of times they occur.</p>
+<h5 id="Example-1"><a class="header-anchor" href="#Example-1">¶</a>Example 1:</h5>
+<blockquote>
+<p>Input: “00110011”<br>
+Output: 6<br>
+Explanation: There are 6 substrings that have equal number of consecutive 1’s and 0’s: “0011”, “01”, “1100”, “10”, “0011”, and “01”.</p>
+</blockquote>
+<blockquote>
+<p>Notice that some of these substrings repeat and are counted the number of times they occur.</p>
+</blockquote>
+<blockquote>
+<p>Also, “00110011” is not a valid substring because all the 0’s (and 1’s) are not grouped together.</p>
+</blockquote>
+<h5 id="Example-2"><a class="header-anchor" href="#Example-2">¶</a>Example 2:</h5>
+<blockquote>
+<p>Input: “10101”<br>
+Output: 4<br>
+Explanation: There are 4 substrings: “10”, “01”, “10”, “01” that have equal number of consecutive 1’s and 0’s.</p>
+</blockquote>
+<h6 id="Note"><a class="header-anchor" href="#Note">¶</a>Note:</h6>
+<ul>
+<li>s.length will be between 1 and 50,000.</li>
+<li>s will only consist of “0” or “1” characters.</li>
+</ul>
+<hr>
+<h3 id="解題切入的知識點"><a class="header-anchor" href="#解題切入的知識點">¶</a>解題切入的知識點</h3>
+<ul>
+<li>string.prototype.sort</li>
+<li>正規表達式 /g
+<ul>
+<li>對於表達式對象的 exec 方法，不加入 g，則只返回第一個匹配，無論執行多少次均是如此，如果加入 g，則第一次執行也返回第一個匹配，再執行返回第二個匹配，依次類推。</li>
+</ul>
+</li>
+<li>數組常用操作方法: <a href="https://juejin.im/post/59f848026fb9a0450167420a" target="_blank" rel="noopener">https://juejin.im/post/59f848026fb9a0450167420a</a></li>
+</ul>
+<hr>
+<ol>
+<li>使用頭部或尾部的陣列刪除方法
+<ul>
+<li>數組尾部删除 <em>pop（）</em>：方法用於删除並且返回陣列最後一個元素。用法：<code>arrayObject.pop()</code></li>
+</ul>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">push()、pop()、unshift()、shift()</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">btn[<span class="number">3</span>].onclick =</span><br><span class="line"><span class="function"><span class="keyword">function</span></span></span><br><span class="line"><span class="function">(<span class="params"></span>)</span>&#123;	<span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]	arr.pop()	alert(arr) <span class="comment">//1,2,3,4</span></span><br><span class="line">&#125;<span class="comment">//尾部删除一個</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>數組頭部添加 <em>unshift()</em> 方法可向數组的開頭增加一個或更多元素，並返回新的長度。語法：<code>JavaScript  arrayObject.unshift(newelement1,newelement2,....,newelementX)</code></li>
+</ol>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">btn[<span class="number">5</span>].onclick =</span><br><span class="line"><span class="function"><span class="keyword">function</span></span></span><br><span class="line"><span class="function">(<span class="params"></span>)</span>&#123;	<span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]	arr.shift()	alert(arr)<span class="comment">//2,3,4,5</span></span><br><span class="line">&#125;<span class="comment">//頭部删除一個</span></span><br></pre></td></tr></table></figure>
+<h3 id="解法"><a class="header-anchor" href="#解法">¶</a>解法</h3>
+<p>思考邏輯：</p>
+<ol>
+<li>先將數字對應的英文字母列出</li>
+<li>將數字分割，EX: 234 ⇒ [2,3,4]</li>
+<li>組出一個新的陣列，也就是數字所對應英文字母的陣列</li>
+<li>先讓23兩個數字進行組合，再跟下一個數字進行組合</li>
+</ol>
+<h3 id="font-color-FF0000-注意點-font"><a class="header-anchor" href="#font-color-FF0000-注意點-font">¶</a><font color=#FF0000>注意點</font></h3>
+<ol>
+<li>在把數字對應的字母塞回陣列的時候，要記得判斷如果該數字有字母再塞回去！！！！</li>
+<li>跑for迴圈的長度想得太困難了！arr[0] 代表的意思是說，比如先拿2,3兩倆去循環組合，2 = ‘abc’, 所以循環的長度就是 3</li>
+<li>要把一剛開始的2,3數字替換掉</li>
+<li>記得返回取得的數組</li>
+<li>最後面要返回算法的function…不然寫的就是屁了</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (str) =&gt; &#123;</span><br><span class="line">        <span class="comment">//建立數字對應字母</span></span><br><span class="line">        <span class="keyword">let</span> map =[<span class="string">''</span>,<span class="number">1</span>, <span class="string">'abc'</span>, <span class="string">'def'</span>, <span class="string">'ghi'</span>, <span class="string">'jkl'</span>, <span class="string">'mno'</span>, <span class="string">'pqrs'</span>, <span class="string">'tux'</span>, <span class="string">'wxyz'</span>]</span><br><span class="line">        <span class="comment">//把輸入字串按照單字分隔，234=&gt;2,3,4</span></span><br><span class="line">        <span class="keyword">let</span> num = str.split(<span class="string">''</span>);</span><br><span class="line">        <span class="comment">// 保存鍵盤映射的字母內容，23=&gt;[abc, def]</span></span><br><span class="line">        <span class="keyword">let</span> code = []</span><br><span class="line">        num.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(map[item])&#123;</span><br><span class="line">                code.push(map[item])</span><br><span class="line">            &#125;       </span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="built_in">console</span>.log(code);</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">let</span> comb = <span class="function">(<span class="params">arr</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">//臨時變量，用來保存前兩個組合的結果</span></span><br><span class="line">           <span class="keyword">let</span> temp = []; </span><br><span class="line">           <span class="comment">// 最外層的循環式是跑遍第一個元素，第二個循環是跑遍第二個元素</span></span><br><span class="line">           <span class="keyword">let</span> il = arr[<span class="number">0</span>].length;</span><br><span class="line">           <span class="keyword">let</span> jl = arr[<span class="number">1</span>].length; </span><br><span class="line">           <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; il ; i++) &#123;     </span><br><span class="line">               <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; jl; j++) &#123;</span><br><span class="line">                   temp.push(<span class="string">`<span class="subst">$&#123;arr[<span class="number">0</span>][i]&#125;</span><span class="subst">$&#123;arr[<span class="number">1</span>][j]&#125;</span>`</span>)</span><br><span class="line">               &#125;</span><br><span class="line">           &#125; </span><br><span class="line">    				<span class="comment">//替換掉一開始組合的2,3，準備跟下一個繼續尬for迴圈</span></span><br><span class="line">           arr.splice(<span class="number">0</span>, <span class="number">2</span>, temp);</span><br><span class="line">    				<span class="comment">//如果還有長度繼續尬</span></span><br><span class="line">           <span class="keyword">if</span>(arr.length &gt; <span class="number">1</span> )&#123;</span><br><span class="line">               comb(arr)</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    				<span class="comment">//沒有就把陣列返回就好</span></span><br><span class="line">               <span class="keyword">return</span> temp;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">//最後是要返回陣列的第一個組合</span></span><br><span class="line">           <span class="keyword">return</span> arr[<span class="number">0</span>];</span><br><span class="line">             </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> comb(code);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          
+          <div class="post-tags">
+              <a href="/tags/JavaScript/" rel="tag"><i class="fa fa-tag"></i> JavaScript</a>
+              <a href="/tags/leetcode/" rel="tag"><i class="fa fa-tag"></i> leetcode</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2020/04/19/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-%E4%BB%80%E9%BA%BC%E6%98%AF-TypeScript%EF%BC%9F-%E9%A1%9E%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/" rel="next" title="TypeScript 學習系列 | 什麼是 TypeScript？ 類型有哪些？">
+      TypeScript 學習系列 | 什麼是 TypeScript？ 類型有哪些？ <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目錄
+        </li>
+        <li class="sidebar-nav-overview">
+          本站概要
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#題目"><span class="nav-number">1.</span> <span class="nav-text">題目</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#Example-1"><span class="nav-number">1.0.1.</span> <span class="nav-text">Example 1:</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Example-2"><span class="nav-number">1.0.2.</span> <span class="nav-text">Example 2:</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#Note"><span class="nav-number">1.0.2.1.</span> <span class="nav-text">Note:</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解題切入的知識點"><span class="nav-number">2.</span> <span class="nav-text">解題切入的知識點</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#解法"><span class="nav-number">3.</span> <span class="nav-text">解法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#font-color-FF0000-注意點-font"><span class="nav-number">4.</span> <span class="nav-text">注意點</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Emma Shih"
+      src="/images/avatar.jpg">
+  <p class="site-author-name" itemprop="name">Emma Shih</p>
+  <div class="site-description" itemprop="description">喜歡閱讀、聽音樂和看各種劇。最近的嗜好是撿樹枝和運動放鬆(空)。這裡紀錄學習網頁開發和程式的相關知識以及遇到的疑難雜症。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">文章</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分類</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">5</span>
+        <span class="site-state-item-name">標籤</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/elftvxq" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;elftvxq" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:emmashih721@hotmail.com" title="E-Mail → mailto:emmashih721@hotmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://www.instagram.com/shih_shih_shih/" title="Instagram → https:&#x2F;&#x2F;www.instagram.com&#x2F;shih_shih_shih&#x2F;" rel="noopener" target="_blank"><i class="fab fa-instagram fa-fw"></i>Instagram</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Emma Shih - 轉載文章請附上原文作者及連結</span>
+</div>
+  <div class="addthis_inline_share_toolbox">
+    <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e99dd4b60bed6ba" async="async"></script>
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://elftvxq.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://elftvxq.github.io/2020/04/17/Leetcode%20No.696%20Count%20Binary%20Substrings/";
+    this.page.identifier = "2020/04/17/Leetcode No.696 Count Binary Substrings/";
+    this.page.title = "Leetcode No.696 Count Binary Substrings 📒";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://elftvxq.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
+</script>
+
+</body>
+</html>

@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="utf-8"?>
+<search>
+  <entry>
+    <title>Leetcode No.696 Count Binary Substrings 📒</title>
+    <url>/2020/04/17/Leetcode%20No.696%20Count%20Binary%20Substrings/</url>
+    <content><![CDATA[<blockquote>
+<p>題號：No.696</p>
+<p>類型：字串 String</p>
+<p>難度：簡單</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="題目"><a class="header-anchor" href="#題目">¶</a>題目</h3>
+<p>Give a string s, count the number of non-empty (contiguous) substrings that have the same number of 0’s and 1’s, and all the 0’s and all the 1’s in these substrings are grouped consecutively.</p>
+<p>Substrings that occur multiple times are counted the number of times they occur.</p>
+<h5 id="Example-1"><a class="header-anchor" href="#Example-1">¶</a>Example 1:</h5>
+<blockquote>
+<p>Input: “00110011”<br>
+Output: 6<br>
+Explanation: There are 6 substrings that have equal number of consecutive 1’s and 0’s: “0011”, “01”, “1100”, “10”, “0011”, and “01”.</p>
+</blockquote>
+<blockquote>
+<p>Notice that some of these substrings repeat and are counted the number of times they occur.</p>
+</blockquote>
+<blockquote>
+<p>Also, “00110011” is not a valid substring because all the 0’s (and 1’s) are not grouped together.</p>
+</blockquote>
+<h5 id="Example-2"><a class="header-anchor" href="#Example-2">¶</a>Example 2:</h5>
+<blockquote>
+<p>Input: “10101”<br>
+Output: 4<br>
+Explanation: There are 4 substrings: “10”, “01”, “10”, “01” that have equal number of consecutive 1’s and 0’s.</p>
+</blockquote>
+<h6 id="Note"><a class="header-anchor" href="#Note">¶</a>Note:</h6>
+<ul>
+<li>s.length will be between 1 and 50,000.</li>
+<li>s will only consist of “0” or “1” characters.</li>
+</ul>
+<hr>
+<h3 id="解題切入的知識點"><a class="header-anchor" href="#解題切入的知識點">¶</a>解題切入的知識點</h3>
+<ul>
+<li>string.prototype.sort</li>
+<li>正規表達式 /g
+<ul>
+<li>對於表達式對象的 exec 方法，不加入 g，則只返回第一個匹配，無論執行多少次均是如此，如果加入 g，則第一次執行也返回第一個匹配，再執行返回第二個匹配，依次類推。</li>
+</ul>
+</li>
+<li>數組常用操作方法: <a href="https://juejin.im/post/59f848026fb9a0450167420a" target="_blank" rel="noopener">https://juejin.im/post/59f848026fb9a0450167420a</a></li>
+</ul>
+<hr>
+<ol>
+<li>使用頭部或尾部的陣列刪除方法
+<ul>
+<li>數組尾部删除 <em>pop（）</em>：方法用於删除並且返回陣列最後一個元素。用法：<code>arrayObject.pop()</code></li>
+</ul>
+</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">push()、pop()、unshift()、shift()</span><br></pre></td></tr></table></figure>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">btn[<span class="number">3</span>].onclick =</span><br><span class="line"><span class="function"><span class="keyword">function</span></span></span><br><span class="line"><span class="function">(<span class="params"></span>)</span>&#123;	<span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]	arr.pop()	alert(arr) <span class="comment">//1,2,3,4</span></span><br><span class="line">&#125;<span class="comment">//尾部删除一個</span></span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>數組頭部添加 <em>unshift()</em> 方法可向數组的開頭增加一個或更多元素，並返回新的長度。語法：<code>JavaScript  arrayObject.unshift(newelement1,newelement2,....,newelementX)</code></li>
+</ol>
+<figure class="highlight js"><table><tr><td class="code"><pre><span class="line">btn[<span class="number">5</span>].onclick =</span><br><span class="line"><span class="function"><span class="keyword">function</span></span></span><br><span class="line"><span class="function">(<span class="params"></span>)</span>&#123;	<span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]	arr.shift()	alert(arr)<span class="comment">//2,3,4,5</span></span><br><span class="line">&#125;<span class="comment">//頭部删除一個</span></span><br></pre></td></tr></table></figure>
+<h3 id="解法"><a class="header-anchor" href="#解法">¶</a>解法</h3>
+<p>思考邏輯：</p>
+<ol>
+<li>先將數字對應的英文字母列出</li>
+<li>將數字分割，EX: 234 ⇒ [2,3,4]</li>
+<li>組出一個新的陣列，也就是數字所對應英文字母的陣列</li>
+<li>先讓23兩個數字進行組合，再跟下一個數字進行組合</li>
+</ol>
+<h3 id="font-color-FF0000-注意點-font"><a class="header-anchor" href="#font-color-FF0000-注意點-font">¶</a><font color=#FF0000>注意點</font></h3>
+<ol>
+<li>在把數字對應的字母塞回陣列的時候，要記得判斷如果該數字有字母再塞回去！！！！</li>
+<li>跑for迴圈的長度想得太困難了！arr[0] 代表的意思是說，比如先拿2,3兩倆去循環組合，2 = ‘abc’, 所以循環的長度就是 3</li>
+<li>要把一剛開始的2,3數字替換掉</li>
+<li>記得返回取得的數組</li>
+<li>最後面要返回算法的function…不然寫的就是屁了</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (str) =&gt; &#123;</span><br><span class="line">        <span class="comment">//建立數字對應字母</span></span><br><span class="line">        <span class="keyword">let</span> map =[<span class="string">''</span>,<span class="number">1</span>, <span class="string">'abc'</span>, <span class="string">'def'</span>, <span class="string">'ghi'</span>, <span class="string">'jkl'</span>, <span class="string">'mno'</span>, <span class="string">'pqrs'</span>, <span class="string">'tux'</span>, <span class="string">'wxyz'</span>]</span><br><span class="line">        <span class="comment">//把輸入字串按照單字分隔，234=&gt;2,3,4</span></span><br><span class="line">        <span class="keyword">let</span> num = str.split(<span class="string">''</span>);</span><br><span class="line">        <span class="comment">// 保存鍵盤映射的字母內容，23=&gt;[abc, def]</span></span><br><span class="line">        <span class="keyword">let</span> code = []</span><br><span class="line">        num.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(map[item])&#123;</span><br><span class="line">                code.push(map[item])</span><br><span class="line">            &#125;       </span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="built_in">console</span>.log(code);</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">let</span> comb = <span class="function">(<span class="params">arr</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">//臨時變量，用來保存前兩個組合的結果</span></span><br><span class="line">           <span class="keyword">let</span> temp = []; </span><br><span class="line">           <span class="comment">// 最外層的循環式是跑遍第一個元素，第二個循環是跑遍第二個元素</span></span><br><span class="line">           <span class="keyword">let</span> il = arr[<span class="number">0</span>].length;</span><br><span class="line">           <span class="keyword">let</span> jl = arr[<span class="number">1</span>].length; </span><br><span class="line">           <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; il ; i++) &#123;     </span><br><span class="line">               <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; jl; j++) &#123;</span><br><span class="line">                   temp.push(<span class="string">`<span class="subst">$&#123;arr[<span class="number">0</span>][i]&#125;</span><span class="subst">$&#123;arr[<span class="number">1</span>][j]&#125;</span>`</span>)</span><br><span class="line">               &#125;</span><br><span class="line">           &#125; </span><br><span class="line">    				<span class="comment">//替換掉一開始組合的2,3，準備跟下一個繼續尬for迴圈</span></span><br><span class="line">           arr.splice(<span class="number">0</span>, <span class="number">2</span>, temp);</span><br><span class="line">    				<span class="comment">//如果還有長度繼續尬</span></span><br><span class="line">           <span class="keyword">if</span>(arr.length &gt; <span class="number">1</span> )&#123;</span><br><span class="line">               comb(arr)</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    				<span class="comment">//沒有就把陣列返回就好</span></span><br><span class="line">               <span class="keyword">return</span> temp;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">//最後是要返回陣列的第一個組合</span></span><br><span class="line">           <span class="keyword">return</span> arr[<span class="number">0</span>];</span><br><span class="line">             </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> comb(code);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>leetcode 刷題</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TypeScript 學習系列 | 什麼是 TypeScript？ 類型有哪些？</title>
+    <url>/2020/04/19/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-%E4%BB%80%E9%BA%BC%E6%98%AF-TypeScript%EF%BC%9F-%E9%A1%9E%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/</url>
+    <content><![CDATA[<p>為什麼要使用 TypeScript 呢？好處在於掌握輸入和輸出的數值以及類型，編寫的時候即時顯示提供錯誤，輸入的參數也可以先定義好，避免踩到不清楚資料型別時的坑，比如資料等於 0 是數字還是布林值這種。</p>
+<a id="more"></a>
+<h4 id="程式語言類型有以下兩種："><a class="header-anchor" href="#程式語言類型有以下兩種：">¶</a>程式語言類型有以下兩種：</h4>
+<blockquote>
+<p>動態類型語言：執行期間才會檢查數據，初始化時不用給定型態或變量，ex: JavaScript, Ruby, Python<br>
+靜態類型語言：編譯階段即執行形態檢查，須在執行前聲明變量或是數據類型， TypeScript 即屬於這類型。</p>
+</blockquote>
+<hr>
+<p>安裝方法，打開終端機輸入</p>
+<pre><code>npm install -g typescript 
+</code></pre>
+<p>檢查安裝版本</p>
+<pre><code>tsc -v
+</code></pre>
+<p>執行 ts 檔案自動生成 js 檔 （要先移動到該目錄）</p>
+<pre><code>tsc hello.ts
+</code></pre>
+<p>第一個 TypeScript 檔案就從 Hello World 開始吧！<br>
+建立檔案的時候，不要忘記檔名是 <em>.ts</em> 結尾。</p>
+<p>使用方法不難，在變數後方指定傳入的類型，如果傳入的是數字或是非字串等類型，編輯器就會報錯</p>
+<pre><code>const hello = (name: string) =&gt; {
+	return `hello ${name}`
+}
+
+hello('emma')
+</code></pre>
+<h2 id="TypeScript-類型"><a class="header-anchor" href="#TypeScript-類型">¶</a>TypeScript 類型</h2>
+<h4 id="基礎類型"><a class="header-anchor" href="#基礎類型">¶</a>基礎類型</h4>
+<p>要進入 TypeScript 類型之前，複習一下 JavaScript 中七個原始類型(Primitive type):</p>
+<ul>
+<li>Boolean</li>
+<li>Null</li>
+<li>Undefined</li>
+<li>Number</li>
+<li>Biglnt (ES6)</li>
+<li>String</li>
+<li>Symbol (ES6)</li>
+</ul>
+<p>為什麼叫做原始值呢？本身的值無法被改變，例如操作字串一定會返回一個新的字串，原始字串並沒有被改變。</p>
+<p>TypeScript 定義類型的方法很簡單，如前面提到在變數後面加上冒號和型別類型即可。以下是範例</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> isDone: <span class="built_in">boolean</span> = <span class="literal">false</span></span><br><span class="line"><span class="keyword">let</span> age: <span class="built_in">number</span> = <span class="number">20</span></span><br><span class="line"><span class="keyword">let</span> binaryNumebr: <span class="built_in">number</span> = <span class="number">0b1111</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//  ES6中："0b"開頭表示將二進位轉成十進位</span></span><br><span class="line"><span class="comment">//  其他進位表示：</span></span><br><span class="line"><span class="comment">//  八進位: 010(ES5.1); 0o10(ES6)</span></span><br><span class="line"><span class="comment">//  十六進位: 0x10(ES5.1)</span></span><br><span class="line"><span class="comment">//  二進位: 0b10(ES6)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> firstName: <span class="built_in">string</span> = <span class="string">'emma'</span></span><br><span class="line"><span class="keyword">let</span> message: <span class="built_in">string</span> = <span class="string">`Hello, <span class="subst">$&#123;firstName&#125;</span>, age is <span class="subst">$&#123;age&#125;</span>`</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 以下兩個為所有類型的子類型，意思為可以被賦值給其他類型</span></span><br><span class="line"><span class="keyword">let</span> u: <span class="literal">undefined</span> = <span class="literal">undefined</span></span><br><span class="line"><span class="keyword">let</span> n: <span class="literal">null</span> = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> num: <span class="built_in">number</span> = <span class="literal">undefined</span></span><br><span class="line"><span class="comment">// undefined 的變量可以賦值給 number</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="any類型和聯合類型"><a class="header-anchor" href="#any類型和聯合類型">¶</a>any類型和聯合類型</h4>
+<h5 id="any-允許賦值為任意類型"><a class="header-anchor" href="#any-允許賦值為任意類型">¶</a>any: 允許賦值為任意類型</h5>
+<blockquote>
+<p>應用狀況：不曉得原本的資料類型，例如接API傳回來的資料。應該盡量避免使用，變數的型別可以輕易被改變，另外記得返回類型一定會是any。</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> notSure: <span class="built_in">any</span> = <span class="number">4</span></span><br><span class="line">notSure = <span class="string">'maybe it is a string'</span></span><br><span class="line">notSure = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 屬型和方法也可以被調用</span></span><br><span class="line">notSure.myName</span><br><span class="line">notSure.getName()</span><br></pre></td></tr></table></figure>
+<h5 id="聯合類型"><a class="header-anchor" href="#聯合類型">¶</a>聯合類型</h5>
+<blockquote>
+<p>應用狀況：只能使用特定允許的類型</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> numberOrString: <span class="built_in">number</span> | <span class="built_in">string</span> = <span class="number">234</span></span><br><span class="line">numberOrString = <span class="string">'abc'</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>TypeScript學習筆記</category>
+      </categories>
+      <tags>
+        <tag>TypeScript</tag>
+        <tag>學習心得</tag>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TypeScript 學習系列 | Array, Tuple 和 interface 使用</title>
+    <url>/2020/04/19/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-Array-Tuple-%E5%92%8C-interface-%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h3 id="Array"><a class="header-anchor" href="#Array">¶</a>Array</h3>
+<p>可以將陣列的元素強制定義為某一個特定的類型，只要在類型的後面加上陣列的括號 [] 即可。</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 陣列裡面全部要是數字</span></span><br><span class="line"><span class="keyword">let</span> arrOFNumber: <span class="built_in">number</span>[] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">arrOFNumber.push(<span class="number">5</span>)</span><br><span class="line">arrOFNumber.push(<span class="string">'str'</span>) <span class="comment">//會報錯</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="Tuple"><a class="header-anchor" href="#Tuple">¶</a>Tuple</h3>
+<p>Tuple的中文可以翻成「元組」，學過 Python 的人對這個資料結構應該比較熟悉。</p>
+<blockquote>
+<p>應用狀況：陣列裡包含除了某特定元素外的類型</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> users: [<span class="built_in">string</span>, <span class="built_in">number</span>] = [<span class="string">'emma'</span>, <span class="number">20</span>]</span><br><span class="line">user = [<span class="string">'Andy'</span>, <span class="number">2</span>, <span class="literal">true</span>] <span class="comment">// true為布林值，會報錯</span></span><br></pre></td></tr></table></figure>
+<h3 id="Object"><a class="header-anchor" href="#Object">¶</a>Object</h3>
+<h4 id="TypeScript-的-Interface"><a class="header-anchor" href="#TypeScript-的-Interface">¶</a>TypeScript 的 Interface:</h4>
+<ol>
+<li>針對使用對象的型態(shape)進行約束，例如屬性或是方法。</li>
+<li>對類(class)進行抽象。</li>
+<li>Duck typing：動態類型語言會推測資料的型別，比起關注資料類型，更加在意資料如何被使用。</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 建議 class 的字首大寫表示為 interface</span></span><br><span class="line"><span class="comment">// 注意使用分號「;」結尾</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">	name: <span class="built_in">string</span>;</span><br><span class="line">	age: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 不能減少或是增加屬性，否則會報錯</span></span><br><span class="line"><span class="keyword">let</span> emma: Person = &#123;</span><br><span class="line">	name: <span class="string">'emma'</span>,</span><br><span class="line">	age: <span class="number">20</span>,</span><br><span class="line">	gender: <span class="string">'female'</span> <span class="comment">//報錯</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="可選屬性"><a class="header-anchor" href="#可選屬性">¶</a>可選屬性</h4>
+<p>如果 interface 只能依照上面方法使用會沒有彈性。因此可選屬性能夠幫忙解決這個問題，有或沒有都不影響。</p>
+<p><strong>使用方法：在變數名稱後面加上問號</strong></p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">	name: <span class="built_in">string</span>;</span><br><span class="line">	age?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="唯讀屬性"><a class="header-anchor" href="#唯讀屬性">¶</a>唯讀屬性</h4>
+<p>複製 class 的時候才使用，只能用在屬性上，且不能被更改賦予的值。</p>
+<p><strong>使用方法：在變數名稱前加上 readonly</strong></p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">	readonly id: <span class="built_in">number</span>;</span><br><span class="line">	name: <span class="built_in">string</span>;</span><br><span class="line">	age?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>強制更改值的話會報錯</p>
+<p><img src="https://upload.cc/i1/2020/04/19/ZxnP7i.png" alt="example"></p>
+]]></content>
+      <categories>
+        <category>TypeScript學習筆記</category>
+      </categories>
+      <tags>
+        <tag>TypeScript</tag>
+        <tag>學習心得</tag>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+</search>
