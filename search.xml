@@ -195,4 +195,51 @@ hello('emma')
         <tag>前端</tag>
       </tags>
   </entry>
+  <entry>
+    <title>TypeScript 學習系列 | 函式推斷與類(class)的方法</title>
+    <url>/2020/06/03/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-%E5%87%BD%E5%BC%8F%E6%8E%A8%E6%96%B7%E8%88%87%E9%A1%9E(class)%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9F/</url>
+    <content><![CDATA[<h3 id="Function-函式"><a class="header-anchor" href="#Function-函式">¶</a>Function 函式</h3>
+<p>在參數位置定義參數類別，返回值則是在括號後方加上冒號及其型別，可選參數可被放在參數最後一個。</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 函式宣告式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span>, z?: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 可選參數必須被放在最後一個</span></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">typeof</span> z === <span class="string">'number'</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y + z</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> result = add(<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<p>也可以把參數 z 寫成這樣子：<br>
+z = 10，默認 z 為 number 的寫法（ES6)</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 函式宣告式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span>, z: <span class="built_in">number</span> = 10</span>): <span class="title">number</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">typeof</span> z === <span class="string">'number'</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y + z</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> result = add(<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<p>寫成函示表達式的話就是這樣子：</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> add = <span class="function"><span class="keyword">function</span> (<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span>, z: <span class="built_in">number</span> = 10</span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">typeof</span> z === <span class="string">'number'</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y + z</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>把滑鼠移到變數 add 上看，TypeScript 會默認成函式類型，想要賦值成其他類型會報錯<br>
+<img src="https://upload.cc/i1/2020/06/03/iNTOY5.png" alt="example"><br>
+<img src="https://upload.cc/i1/2020/06/03/r5x6hH.png" alt="example"></p>
+<p>要將變數定義為函式類別，寫法如下，注意箭頭為 TS 返回聲明函數的值的方法，不是箭頭函示的箭頭～</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const add2: (x: number, y: number, z?: number) &#x3D;&gt; number &#x3D; add</span><br></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>Tips: 直接在 node 環境上看 TS 檔案 console 結果的方法</p>
+</blockquote>
+<pre><code>npm install -g ts-node 
+</code></pre>
+<p>執行只要打這樣，xxxx 是你的檔案</p>
+<pre><code>ts-node xxxx.ts
+</code></pre>
+<hr>
+<h3 id="Class-類"><a class="header-anchor" href="#Class-類">¶</a>Class 類</h3>
+<p>接下來會講到 class 父類別和子類別的方法，如果有學過 Java OOP 概念的人，在這部分應該會理解比較快，主要是其中最重要的三個觀念：封裝、繼承、多形。</p>
+<p>封裝主要是不讓外部直接取得變數，但可以透過內部方法調用取得值。繼承的話，子類別可以從父類別取得其屬性和方法，也可以加上自己的屬性或方法覆寫。多形可以想像成繼承的方法，其本質不一樣，例如動物會叫，叫的聲音卻不一樣，透過多形的寫法，繼承父類別叫的方法，在子類別中 overriding(覆寫) 可以執行獲得不同的叫聲。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 先做出一個動物的 class</span><br><span class="line"></span><br><span class="line">class Animal &#123;</span><br><span class="line">	name: string;</span><br><span class="line">		constructor(name: string) &#123;</span><br><span class="line">		this.name &#x3D; name</span><br><span class="line">	&#125;</span><br><span class="line">	run() &#123;</span><br><span class="line">		return &#96;$&#123;this.name&#125; is running&#96;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接著利用動物這個類別創造出物件，比如熊🐻，父類別裡面有 run 這個方法，子類別可以繼承並且使用。</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> bear = <span class="keyword">new</span> Animal(<span class="string">'Winne'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(bear())</span><br><span class="line"><span class="comment">// Winne is running</span></span><br></pre></td></tr></table></figure>
+<p>前面提到子類別可以自行增加方法，使用 extends 表示繼承 Animal 這個 class，下面的範例是創造出狗🐶的物件當例子，並且自行加上 bark 這個方法。</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> Dog <span class="keyword">extends</span> Animal &#123;</span><br><span class="line">	bark() &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> is barking`</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> baobao = <span class="keyword">new</span> Dog(<span class="string">'baobao'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(baobao.run()) <span class="comment">// baobao.run is running</span></span><br><span class="line"><span class="built_in">console</span>.log(baobao.bark()) <span class="comment">// baobao.run is barking</span></span><br></pre></td></tr></table></figure>
+<p>前面有提到，雖然動物都會叫，可是叫聲可能會不一樣，接下來要提到多形(polymorphism)的概念和方法。在貓咪類別中利用父類別的 run 方法，加上子類別自己特別的行為。允許在程式上只要制定好一個類別，能使用來操作不同物件。</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> Cat <span class="keyword">extends</span> Animal &#123;</span><br><span class="line">	<span class="comment">// 指到父類別的變數，需要使用 super</span></span><br><span class="line">	<span class="keyword">constructor</span>(<span class="params">name</span>) &#123;</span><br><span class="line">		<span class="keyword">super</span>(name)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// overriding 貓咪叫聲</span></span><br><span class="line">	run() &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">'Meow, '</span> + <span class="keyword">super</span>.run()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> maomao = <span class="keyword">new</span> Cat(<span class="string">'maomao'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(maomao.run())</span><br><span class="line"><span class="comment">//Meow, maomao is running</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>TypeScript學習筆記</category>
+      </categories>
+      <tags>
+        <tag>TypeScript</tag>
+        <tag>學習心得</tag>
+        <tag>前端</tag>
+      </tags>
+  </entry>
 </search>

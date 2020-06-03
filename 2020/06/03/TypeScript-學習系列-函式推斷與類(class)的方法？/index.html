@@ -21,30 +21,38 @@
     var CONFIG = {"hostname":"elftvxq.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":"flat"},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="喜歡閱讀、聽音樂和看各種劇。最近的嗜好是撿樹枝和運動放鬆(空)。這裡紀錄學習網頁開發和程式的相關知識以及遇到的疑難雜症。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="真露島(๑´ㅂ&#96;๑)">
-<meta property="og:url" content="https://elftvxq.github.io/index.html">
+  <meta name="description" content="¶Function 函式 在參數位置定義參數類別，返回值則是在括號後方加上冒號及其型別，可選參數可被放在參數最後一個。 1234567891011&#x2F;&#x2F; 函式宣告式function add(x: number, y: number, z?: number): number &amp;#123;	&#x2F;&#x2F; 可選參數必須被放在最後一個	if (typeof z &#x3D;&#x3D;&#x3D; &#39;number&#39;) &amp;#123;		retur">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TypeScript 學習系列 | 函式推斷與類(class)的方法">
+<meta property="og:url" content="https://elftvxq.github.io/2020/06/03/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-%E5%87%BD%E5%BC%8F%E6%8E%A8%E6%96%B7%E8%88%87%E9%A1%9E(class)%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9F/index.html">
 <meta property="og:site_name" content="真露島(๑´ㅂ&#96;๑)">
-<meta property="og:description" content="喜歡閱讀、聽音樂和看各種劇。最近的嗜好是撿樹枝和運動放鬆(空)。這裡紀錄學習網頁開發和程式的相關知識以及遇到的疑難雜症。">
+<meta property="og:description" content="¶Function 函式 在參數位置定義參數類別，返回值則是在括號後方加上冒號及其型別，可選參數可被放在參數最後一個。 1234567891011&#x2F;&#x2F; 函式宣告式function add(x: number, y: number, z?: number): number &amp;#123;	&#x2F;&#x2F; 可選參數必須被放在最後一個	if (typeof z &#x3D;&#x3D;&#x3D; &#39;number&#39;) &amp;#123;		retur">
 <meta property="og:locale" content="zh_TW">
+<meta property="og:image" content="https://upload.cc/i1/2020/06/03/iNTOY5.png">
+<meta property="og:image" content="https://upload.cc/i1/2020/06/03/r5x6hH.png">
+<meta property="article:published_time" content="2020-06-03T15:35:22.260Z">
+<meta property="article:modified_time" content="2020-06-03T16:25:20.441Z">
 <meta property="article:author" content="Emma Shih">
+<meta property="article:tag" content="TypeScript">
+<meta property="article:tag" content="學習心得">
+<meta property="article:tag" content="前端">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://upload.cc/i1/2020/06/03/iNTOY5.png">
 
-<link rel="canonical" href="https://elftvxq.github.io/">
+<link rel="canonical" href="https://elftvxq.github.io/2020/06/03/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-%E5%87%BD%E5%BC%8F%E6%8E%A8%E6%96%B7%E8%88%87%E9%A1%9E(class)%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9F/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-TW'
   };
 </script>
 
-  <title>真露島(๑´ㅂ`๑)</title>
+  <title>TypeScript 學習系列 | 函式推斷與類(class)的方法 | 真露島(๑´ㅂ`๑)</title>
   
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-163882935-1"></script>
     <script>
@@ -167,9 +175,10 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
@@ -185,10 +194,9 @@
       <meta itemprop="name" content="真露島(๑´ㅂ`๑)">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/06/03/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-%E5%87%BD%E5%BC%8F%E6%8E%A8%E6%96%B7%E8%88%87%E9%A1%9E(class)%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9F/" class="post-title-link" itemprop="url">TypeScript 學習系列 | 函式推斷與類(class)的方法</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          TypeScript 學習系列 | 函式推斷與類(class)的方法
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -217,6 +225,13 @@
             </span>
 
           
+            <span class="post-meta-item" title="閱讀次數" id="busuanzi_container_page_pv" style="display: none;">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">閱讀次數：</span>
+              <span id="busuanzi_value_page_pv"></span>
+            </span>
   
   <span class="post-meta-item">
     
@@ -241,318 +256,84 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="Function-函式"><a class="header-anchor" href="#Function-函式">¶</a>Function 函式</h3>
+        <h3 id="Function-函式"><a class="header-anchor" href="#Function-函式">¶</a>Function 函式</h3>
 <p>在參數位置定義參數類別，返回值則是在括號後方加上冒號及其型別，可選參數可被放在參數最後一個。</p>
 <figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函式宣告式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span>, z?: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 可選參數必須被放在最後一個</span></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">typeof</span> z === <span class="string">'number'</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y + z</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> result = add(<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/06/03/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-%E5%87%BD%E5%BC%8F%E6%8E%A8%E6%96%B7%E8%88%87%E9%A1%9E(class)%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9F/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://elftvxq.github.io/2020/04/19/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-Array-Tuple-%E5%92%8C-interface-%E4%BD%BF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Emma Shih">
-      <meta itemprop="description" content="喜歡閱讀、聽音樂和看各種劇。最近的嗜好是撿樹枝和運動放鬆(空)。這裡紀錄學習網頁開發和程式的相關知識以及遇到的疑難雜症。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="真露島(๑´ㅂ`๑)">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/19/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-Array-Tuple-%E5%92%8C-interface-%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">TypeScript 學習系列 | Array, Tuple 和 interface 使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-              
-
-              <time title="創建時間：2020-04-19 22:39:01 / 修改時間：22:58:01" itemprop="dateCreated datePublished" datetime="2020-04-19T22:39:01+08:00">2020-04-19</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/TypeScript%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">TypeScript學習筆記</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2020/04/19/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-Array-Tuple-%E5%92%8C-interface-%E4%BD%BF%E7%94%A8/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/19/TypeScript-學習系列-Array-Tuple-和-interface-使用/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="Array"><a class="header-anchor" href="#Array">¶</a>Array</h3>
-<p>可以將陣列的元素強制定義為某一個特定的類型，只要在類型的後面加上陣列的括號 [] 即可。</p>
-<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 陣列裡面全部要是數字</span></span><br><span class="line"><span class="keyword">let</span> arrOFNumber: <span class="built_in">number</span>[] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">arrOFNumber.push(<span class="number">5</span>)</span><br><span class="line">arrOFNumber.push(<span class="string">'str'</span>) <span class="comment">//會報錯</span></span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/04/19/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-Array-Tuple-%E5%92%8C-interface-%E4%BD%BF%E7%94%A8/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://elftvxq.github.io/2020/04/19/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-%E4%BB%80%E9%BA%BC%E6%98%AF-TypeScript%EF%BC%9F-%E9%A1%9E%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Emma Shih">
-      <meta itemprop="description" content="喜歡閱讀、聽音樂和看各種劇。最近的嗜好是撿樹枝和運動放鬆(空)。這裡紀錄學習網頁開發和程式的相關知識以及遇到的疑難雜症。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="真露島(๑´ㅂ`๑)">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/19/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-%E4%BB%80%E9%BA%BC%E6%98%AF-TypeScript%EF%BC%9F-%E9%A1%9E%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/" class="post-title-link" itemprop="url">TypeScript 學習系列 | 什麼是 TypeScript？ 類型有哪些？</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-              
-
-              <time title="創建時間：2020-04-19 21:39:20 / 修改時間：22:57:38" itemprop="dateCreated datePublished" datetime="2020-04-19T21:39:20+08:00">2020-04-19</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/TypeScript%E5%AD%B8%E7%BF%92%E7%AD%86%E8%A8%98/" itemprop="url" rel="index"><span itemprop="name">TypeScript學習筆記</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2020/04/19/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-%E4%BB%80%E9%BA%BC%E6%98%AF-TypeScript%EF%BC%9F-%E9%A1%9E%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/19/TypeScript-學習系列-什麼是-TypeScript？-類型有哪些？/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>為什麼要使用 TypeScript 呢？好處在於掌握輸入和輸出的數值以及類型，編寫的時候即時顯示提供錯誤，輸入的參數也可以先定義好，避免踩到不清楚資料型別時的坑，比如資料等於 0 是數字還是布林值這種。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/04/19/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-%E4%BB%80%E9%BA%BC%E6%98%AF-TypeScript%EF%BC%9F-%E9%A1%9E%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
-    <link itemprop="mainEntityOfPage" href="https://elftvxq.github.io/2020/04/17/Leetcode%20No.696%20Count%20Binary%20Substrings/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpg">
-      <meta itemprop="name" content="Emma Shih">
-      <meta itemprop="description" content="喜歡閱讀、聽音樂和看各種劇。最近的嗜好是撿樹枝和運動放鬆(空)。這裡紀錄學習網頁開發和程式的相關知識以及遇到的疑難雜症。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="真露島(๑´ㅂ`๑)">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/04/17/Leetcode%20No.696%20Count%20Binary%20Substrings/" class="post-title-link" itemprop="url">Leetcode No.696 Count Binary Substrings 📒</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">發表於</span>
-
-              <time title="創建時間：2020-04-17 23:20:49" itemprop="dateCreated datePublished" datetime="2020-04-17T23:20:49+08:00">2020-04-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新於</span>
-                <time title="修改時間：2020-04-22 21:24:27" itemprop="dateModified" datetime="2020-04-22T21:24:27+08:00">2020-04-22</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分類於</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/leetcode-%E5%88%B7%E9%A1%8C/" itemprop="url" rel="index"><span itemprop="name">leetcode 刷題</span></a>
-                </span>
-            </span>
-
-          
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Disqus：</span>
-    
-    <a title="disqus" href="/2020/04/17/Leetcode%20No.696%20Count%20Binary%20Substrings/#disqus_thread" itemprop="discussionUrl">
-      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/04/17/Leetcode No.696 Count Binary Substrings/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <blockquote>
-<p>題號：No.696</p>
-<p>類型：字串 String</p>
-<p>難度：簡單</p>
-<p>使用語言：JavaScript</p>
+<a id="more"></a>
+<p>也可以把參數 z 寫成這樣子：<br>
+z = 10，默認 z 為 number 的寫法（ES6)</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 函式宣告式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span>, z: <span class="built_in">number</span> = 10</span>): <span class="title">number</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">typeof</span> z === <span class="string">'number'</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y + z</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> result = add(<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<p>寫成函示表達式的話就是這樣子：</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> add = <span class="function"><span class="keyword">function</span> (<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span>, z: <span class="built_in">number</span> = 10</span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">typeof</span> z === <span class="string">'number'</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y + z</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>把滑鼠移到變數 add 上看，TypeScript 會默認成函式類型，想要賦值成其他類型會報錯<br>
+<img src="https://upload.cc/i1/2020/06/03/iNTOY5.png" alt="example"><br>
+<img src="https://upload.cc/i1/2020/06/03/r5x6hH.png" alt="example"></p>
+<p>要將變數定義為函式類別，寫法如下，注意箭頭為 TS 返回聲明函數的值的方法，不是箭頭函示的箭頭～</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">const add2: (x: number, y: number, z?: number) &#x3D;&gt; number &#x3D; add</span><br></pre></td></tr></table></figure>
+<hr>
+<blockquote>
+<p>Tips: 直接在 node 環境上看 TS 檔案 console 結果的方法</p>
 </blockquote>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2020/04/17/Leetcode%20No.696%20Count%20Binary%20Substrings/#more" rel="contents">
-                閱讀全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
+<pre><code>npm install -g ts-node 
+</code></pre>
+<p>執行只要打這樣，xxxx 是你的檔案</p>
+<pre><code>ts-node xxxx.ts
+</code></pre>
+<hr>
+<h3 id="Class-類"><a class="header-anchor" href="#Class-類">¶</a>Class 類</h3>
+<p>接下來會講到 class 父類別和子類別的方法，如果有學過 Java OOP 概念的人，在這部分應該會理解比較快，主要是其中最重要的三個觀念：封裝、繼承、多形。</p>
+<p>封裝主要是不讓外部直接取得變數，但可以透過內部方法調用取得值。繼承的話，子類別可以從父類別取得其屬性和方法，也可以加上自己的屬性或方法覆寫。多形可以想像成繼承的方法，其本質不一樣，例如動物會叫，叫的聲音卻不一樣，透過多形的寫法，繼承父類別叫的方法，在子類別中 overriding(覆寫) 可以執行獲得不同的叫聲。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 先做出一個動物的 class</span><br><span class="line"></span><br><span class="line">class Animal &#123;</span><br><span class="line">	name: string;</span><br><span class="line">		constructor(name: string) &#123;</span><br><span class="line">		this.name &#x3D; name</span><br><span class="line">	&#125;</span><br><span class="line">	run() &#123;</span><br><span class="line">		return &#96;$&#123;this.name&#125; is running&#96;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>接著利用動物這個類別創造出物件，比如熊🐻，父類別裡面有 run 這個方法，子類別可以繼承並且使用。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> bear = <span class="keyword">new</span> Animal(<span class="string">'Winne'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(bear())</span><br><span class="line"><span class="comment">// Winne is running</span></span><br></pre></td></tr></table></figure>
+<p>前面提到子類別可以自行增加方法，使用 extends 表示繼承 Animal 這個 class，下面的範例是創造出狗🐶的物件當例子，並且自行加上 bark 這個方法。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> Dog <span class="keyword">extends</span> Animal &#123;</span><br><span class="line">	bark() &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> is barking`</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> baobao = <span class="keyword">new</span> Dog(<span class="string">'baobao'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(baobao.run()) <span class="comment">// baobao.run is running</span></span><br><span class="line"><span class="built_in">console</span>.log(baobao.bark()) <span class="comment">// baobao.run is barking</span></span><br></pre></td></tr></table></figure>
+<p>前面有提到，雖然動物都會叫，可是叫聲可能會不一樣，接下來要提到多形(polymorphism)的概念和方法。在貓咪類別中利用父類別的 run 方法，加上子類別自己特別的行為。允許在程式上只要制定好一個類別，能使用來操作不同物件。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> Cat <span class="keyword">extends</span> Animal &#123;</span><br><span class="line">	<span class="comment">// 指到父類別的變數，需要使用 super</span></span><br><span class="line">	<span class="keyword">constructor</span>(<span class="params">name</span>) &#123;</span><br><span class="line">		<span class="keyword">super</span>(name)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// overriding 貓咪叫聲</span></span><br><span class="line">	run() &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">'Meow, '</span> + <span class="keyword">super</span>.run()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> maomao = <span class="keyword">new</span> Cat(<span class="string">'maomao'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(maomao.run())</span><br><span class="line"><span class="comment">//Meow, maomao is running</span></span><br></pre></td></tr></table></figure>
+
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
+          
+          <div class="post-tags">
+              <a href="/tags/TypeScript/" rel="tag"><i class="fa fa-tag"></i> TypeScript</a>
+              <a href="/tags/%E5%AD%B8%E7%BF%92%E5%BF%83%E5%BE%97/" rel="tag"><i class="fa fa-tag"></i> 學習心得</a>
+              <a href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag"><i class="fa fa-tag"></i> 前端</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/04/19/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-Array-Tuple-%E5%92%8C-interface-%E4%BD%BF%E7%94%A8/" rel="prev" title="TypeScript 學習系列 | Array, Tuple 和 interface 使用">
+      <i class="fa fa-chevron-left"></i> TypeScript 學習系列 | Array, Tuple 和 interface 使用
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
       </footer>
+    
   </article>
   
   
-  
-
-
   
 
 
 
           </div>
           
+    
+  <div class="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -599,6 +380,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Function-函式"><span class="nav-number">1.</span> <span class="nav-text">Function 函式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Class-類"><span class="nav-number">2.</span> <span class="nav-text">Class 類</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -755,6 +537,26 @@
   }
   // defer loading until the whole page loading is completed
   window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  var disqus_config = function() {
+    this.page.url = "https://elftvxq.github.io/2020/06/03/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-%E5%87%BD%E5%BC%8F%E6%8E%A8%E6%96%B7%E8%88%87%E9%A1%9E(class)%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9F/";
+    this.page.identifier = "2020/06/03/TypeScript-學習系列-函式推斷與類(class)的方法？/";
+    this.page.title = "TypeScript 學習系列 | 函式推斷與類(class)的方法";
+    };
+  NexT.utils.loadComments(document.querySelector('#disqus_thread'), () => {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: disqus_config
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://elftvxq.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  });
 </script>
 
 </body>
