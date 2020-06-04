@@ -1,114 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>TypeScript 學習系列 | 什麼是 TypeScript？ 類型有哪些？</title>
-    <url>/2020/04/19/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-%E4%BB%80%E9%BA%BC%E6%98%AF-TypeScript%EF%BC%9F-%E9%A1%9E%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/</url>
-    <content><![CDATA[<p>為什麼要使用 TypeScript 呢？好處在於掌握輸入和輸出的數值以及類型，編寫的時候即時顯示提供錯誤，輸入的參數也可以先定義好，避免踩到不清楚資料型別時的坑，比如資料等於 0 是數字還是布林值這種。</p>
-<a id="more"></a>
-<h4 id="程式語言類型有以下兩種："><a class="header-anchor" href="#程式語言類型有以下兩種：">¶</a>程式語言類型有以下兩種：</h4>
-<blockquote>
-<p>動態類型語言：執行期間才會檢查數據，初始化時不用給定型態或變量，ex: JavaScript, Ruby, Python<br>
-靜態類型語言：編譯階段即執行形態檢查，須在執行前聲明變量或是數據類型， TypeScript 即屬於這類型。</p>
-</blockquote>
-<hr>
-<p>安裝方法，打開終端機輸入</p>
-<pre><code>npm install -g typescript 
-</code></pre>
-<p>檢查安裝版本</p>
-<pre><code>tsc -v
-</code></pre>
-<p>執行 ts 檔案自動生成 js 檔 （要先移動到該目錄）</p>
-<pre><code>tsc hello.ts
-</code></pre>
-<p>第一個 TypeScript 檔案就從 Hello World 開始吧！<br>
-建立檔案的時候，不要忘記檔名是 <em>.ts</em> 結尾。</p>
-<p>使用方法不難，在變數後方指定傳入的類型，如果傳入的是數字或是非字串等類型，編輯器就會報錯</p>
-<pre><code>const hello = (name: string) =&gt; {
-	return `hello ${name}`
-}
-
-hello('emma')
-</code></pre>
-<h2 id="TypeScript-類型"><a class="header-anchor" href="#TypeScript-類型">¶</a>TypeScript 類型</h2>
-<h4 id="基礎類型"><a class="header-anchor" href="#基礎類型">¶</a>基礎類型</h4>
-<p>要進入 TypeScript 類型之前，複習一下 JavaScript 中七個原始類型(Primitive type):</p>
-<ul>
-<li>Boolean</li>
-<li>Null</li>
-<li>Undefined</li>
-<li>Number</li>
-<li>Biglnt (ES6)</li>
-<li>String</li>
-<li>Symbol (ES6)</li>
-</ul>
-<p>為什麼叫做原始值呢？本身的值無法被改變，例如操作字串一定會返回一個新的字串，原始字串並沒有被改變。</p>
-<p>TypeScript 定義類型的方法很簡單，如前面提到在變數後面加上冒號和型別類型即可。以下是範例</p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> isDone: <span class="built_in">boolean</span> = <span class="literal">false</span></span><br><span class="line"><span class="keyword">let</span> age: <span class="built_in">number</span> = <span class="number">20</span></span><br><span class="line"><span class="keyword">let</span> binaryNumebr: <span class="built_in">number</span> = <span class="number">0b1111</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//  ES6中："0b"開頭表示將二進位轉成十進位</span></span><br><span class="line"><span class="comment">//  其他進位表示：</span></span><br><span class="line"><span class="comment">//  八進位: 010(ES5.1); 0o10(ES6)</span></span><br><span class="line"><span class="comment">//  十六進位: 0x10(ES5.1)</span></span><br><span class="line"><span class="comment">//  二進位: 0b10(ES6)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> firstName: <span class="built_in">string</span> = <span class="string">'emma'</span></span><br><span class="line"><span class="keyword">let</span> message: <span class="built_in">string</span> = <span class="string">`Hello, <span class="subst">$&#123;firstName&#125;</span>, age is <span class="subst">$&#123;age&#125;</span>`</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 以下兩個為所有類型的子類型，意思為可以被賦值給其他類型</span></span><br><span class="line"><span class="keyword">let</span> u: <span class="literal">undefined</span> = <span class="literal">undefined</span></span><br><span class="line"><span class="keyword">let</span> n: <span class="literal">null</span> = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> num: <span class="built_in">number</span> = <span class="literal">undefined</span></span><br><span class="line"><span class="comment">// undefined 的變量可以賦值給 number</span></span><br></pre></td></tr></table></figure>
-<hr>
-<h4 id="any類型和聯合類型"><a class="header-anchor" href="#any類型和聯合類型">¶</a>any類型和聯合類型</h4>
-<h5 id="any-允許賦值為任意類型"><a class="header-anchor" href="#any-允許賦值為任意類型">¶</a>any: 允許賦值為任意類型</h5>
-<blockquote>
-<p>應用狀況：不曉得原本的資料類型，例如接API傳回來的資料。應該盡量避免使用，變數的型別可以輕易被改變，另外記得返回類型一定會是any。</p>
-</blockquote>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> notSure: <span class="built_in">any</span> = <span class="number">4</span></span><br><span class="line">notSure = <span class="string">'maybe it is a string'</span></span><br><span class="line">notSure = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 屬型和方法也可以被調用</span></span><br><span class="line">notSure.myName</span><br><span class="line">notSure.getName()</span><br></pre></td></tr></table></figure>
-<h5 id="聯合類型"><a class="header-anchor" href="#聯合類型">¶</a>聯合類型</h5>
-<blockquote>
-<p>應用狀況：只能使用特定允許的類型</p>
-</blockquote>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> numberOrString: <span class="built_in">number</span> | <span class="built_in">string</span> = <span class="number">234</span></span><br><span class="line">numberOrString = <span class="string">'abc'</span></span><br></pre></td></tr></table></figure>
-]]></content>
-      <categories>
-        <category>TypeScript學習筆記</category>
-      </categories>
-      <tags>
-        <tag>TypeScript</tag>
-        <tag>學習心得</tag>
-        <tag>前端</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>TypeScript 學習系列 | Array, Tuple 和 interface 使用</title>
-    <url>/2020/04/19/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-Array-Tuple-%E5%92%8C-interface-%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h3 id="Array"><a class="header-anchor" href="#Array">¶</a>Array</h3>
-<p>可以將陣列的元素強制定義為某一個特定的類型，只要在類型的後面加上陣列的括號 [] 即可。</p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 陣列裡面全部要是數字</span></span><br><span class="line"><span class="keyword">let</span> arrOFNumber: <span class="built_in">number</span>[] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">arrOFNumber.push(<span class="number">5</span>)</span><br><span class="line">arrOFNumber.push(<span class="string">'str'</span>) <span class="comment">//會報錯</span></span><br></pre></td></tr></table></figure>
-<a id="more"></a>
-<h3 id="Tuple"><a class="header-anchor" href="#Tuple">¶</a>Tuple</h3>
-<p>Tuple的中文可以翻成「元組」，學過 Python 的人對這個資料結構應該比較熟悉。</p>
-<blockquote>
-<p>應用狀況：陣列裡包含除了某特定元素外的類型</p>
-</blockquote>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> users: [<span class="built_in">string</span>, <span class="built_in">number</span>] = [<span class="string">'emma'</span>, <span class="number">20</span>]</span><br><span class="line">user = [<span class="string">'Andy'</span>, <span class="number">2</span>, <span class="literal">true</span>] <span class="comment">// true為布林值，會報錯</span></span><br></pre></td></tr></table></figure>
-<h3 id="Object"><a class="header-anchor" href="#Object">¶</a>Object</h3>
-<h4 id="TypeScript-的-Interface"><a class="header-anchor" href="#TypeScript-的-Interface">¶</a>TypeScript 的 Interface:</h4>
-<ol>
-<li>針對使用對象的型態(shape)進行約束，例如屬性或是方法。</li>
-<li>對類(class)進行抽象。</li>
-<li>Duck typing：動態類型語言會推測資料的型別，比起關注資料類型，更加在意資料如何被使用。</li>
-</ol>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 建議 class 的字首大寫表示為 interface</span></span><br><span class="line"><span class="comment">// 注意使用分號「;」結尾</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">	name: <span class="built_in">string</span>;</span><br><span class="line">	age: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 不能減少或是增加屬性，否則會報錯</span></span><br><span class="line"><span class="keyword">let</span> emma: Person = &#123;</span><br><span class="line">	name: <span class="string">'emma'</span>,</span><br><span class="line">	age: <span class="number">20</span>,</span><br><span class="line">	gender: <span class="string">'female'</span> <span class="comment">//報錯</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="可選屬性"><a class="header-anchor" href="#可選屬性">¶</a>可選屬性</h4>
-<p>如果 interface 只能依照上面方法使用會沒有彈性。因此可選屬性能夠幫忙解決這個問題，有或沒有都不影響。</p>
-<p><strong>使用方法：在變數名稱後面加上問號</strong></p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">	name: <span class="built_in">string</span>;</span><br><span class="line">	age?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h4 id="唯讀屬性"><a class="header-anchor" href="#唯讀屬性">¶</a>唯讀屬性</h4>
-<p>複製 class 的時候才使用，只能用在屬性上，且不能被更改賦予的值。</p>
-<p><strong>使用方法：在變數名稱前加上 readonly</strong></p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">	readonly id: <span class="built_in">number</span>;</span><br><span class="line">	name: <span class="built_in">string</span>;</span><br><span class="line">	age?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>強制更改值的話會報錯</p>
-<p><img src="https://upload.cc/i1/2020/04/19/ZxnP7i.png" alt="example"></p>
-]]></content>
-      <categories>
-        <category>TypeScript學習筆記</category>
-      </categories>
-      <tags>
-        <tag>TypeScript</tag>
-        <tag>學習心得</tag>
-        <tag>前端</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Leetcode No.696 Count Binary Substrings 📒</title>
     <url>/2020/04/17/Leetcode%20No.696%20Count%20Binary%20Substrings/</url>
     <content><![CDATA[<blockquote>
@@ -196,6 +88,72 @@ Explanation: There are 4 substrings: “10”, “01”, “10”, “01” that
       </tags>
   </entry>
   <entry>
+    <title>TypeScript 學習系列 | 什麼是 TypeScript？ 類型有哪些？</title>
+    <url>/2020/04/19/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-%E4%BB%80%E9%BA%BC%E6%98%AF-TypeScript%EF%BC%9F-%E9%A1%9E%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/</url>
+    <content><![CDATA[<p>為什麼要使用 TypeScript 呢？好處在於掌握輸入和輸出的數值以及類型，編寫的時候即時顯示提供錯誤，輸入的參數也可以先定義好，避免踩到不清楚資料型別時的坑，比如資料等於 0 是數字還是布林值這種。</p>
+<a id="more"></a>
+<h4 id="程式語言類型有以下兩種："><a class="header-anchor" href="#程式語言類型有以下兩種：">¶</a>程式語言類型有以下兩種：</h4>
+<blockquote>
+<p>動態類型語言：執行期間才會檢查數據，初始化時不用給定型態或變量，ex: JavaScript, Ruby, Python<br>
+靜態類型語言：編譯階段即執行形態檢查，須在執行前聲明變量或是數據類型， TypeScript 即屬於這類型。</p>
+</blockquote>
+<hr>
+<p>安裝方法，打開終端機輸入</p>
+<pre><code>npm install -g typescript 
+</code></pre>
+<p>檢查安裝版本</p>
+<pre><code>tsc -v
+</code></pre>
+<p>執行 ts 檔案自動生成 js 檔 （要先移動到該目錄）</p>
+<pre><code>tsc hello.ts
+</code></pre>
+<p>第一個 TypeScript 檔案就從 Hello World 開始吧！<br>
+建立檔案的時候，不要忘記檔名是 <em>.ts</em> 結尾。</p>
+<p>使用方法不難，在變數後方指定傳入的類型，如果傳入的是數字或是非字串等類型，編輯器就會報錯</p>
+<pre><code>const hello = (name: string) =&gt; {
+	return `hello ${name}`
+}
+
+hello('emma')
+</code></pre>
+<h2 id="TypeScript-類型"><a class="header-anchor" href="#TypeScript-類型">¶</a>TypeScript 類型</h2>
+<h4 id="基礎類型"><a class="header-anchor" href="#基礎類型">¶</a>基礎類型</h4>
+<p>要進入 TypeScript 類型之前，複習一下 JavaScript 中七個原始類型(Primitive type):</p>
+<ul>
+<li>Boolean</li>
+<li>Null</li>
+<li>Undefined</li>
+<li>Number</li>
+<li>Biglnt (ES6)</li>
+<li>String</li>
+<li>Symbol (ES6)</li>
+</ul>
+<p>為什麼叫做原始值呢？本身的值無法被改變，例如操作字串一定會返回一個新的字串，原始字串並沒有被改變。</p>
+<p>TypeScript 定義類型的方法很簡單，如前面提到在變數後面加上冒號和型別類型即可。以下是範例</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> isDone: <span class="built_in">boolean</span> = <span class="literal">false</span></span><br><span class="line"><span class="keyword">let</span> age: <span class="built_in">number</span> = <span class="number">20</span></span><br><span class="line"><span class="keyword">let</span> binaryNumebr: <span class="built_in">number</span> = <span class="number">0b1111</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//  ES6中："0b"開頭表示將二進位轉成十進位</span></span><br><span class="line"><span class="comment">//  其他進位表示：</span></span><br><span class="line"><span class="comment">//  八進位: 010(ES5.1); 0o10(ES6)</span></span><br><span class="line"><span class="comment">//  十六進位: 0x10(ES5.1)</span></span><br><span class="line"><span class="comment">//  二進位: 0b10(ES6)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> firstName: <span class="built_in">string</span> = <span class="string">'emma'</span></span><br><span class="line"><span class="keyword">let</span> message: <span class="built_in">string</span> = <span class="string">`Hello, <span class="subst">$&#123;firstName&#125;</span>, age is <span class="subst">$&#123;age&#125;</span>`</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 以下兩個為所有類型的子類型，意思為可以被賦值給其他類型</span></span><br><span class="line"><span class="keyword">let</span> u: <span class="literal">undefined</span> = <span class="literal">undefined</span></span><br><span class="line"><span class="keyword">let</span> n: <span class="literal">null</span> = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> num: <span class="built_in">number</span> = <span class="literal">undefined</span></span><br><span class="line"><span class="comment">// undefined 的變量可以賦值給 number</span></span><br></pre></td></tr></table></figure>
+<hr>
+<h4 id="any類型和聯合類型"><a class="header-anchor" href="#any類型和聯合類型">¶</a>any類型和聯合類型</h4>
+<h5 id="any-允許賦值為任意類型"><a class="header-anchor" href="#any-允許賦值為任意類型">¶</a>any: 允許賦值為任意類型</h5>
+<blockquote>
+<p>應用狀況：不曉得原本的資料類型，例如接API傳回來的資料。應該盡量避免使用，變數的型別可以輕易被改變，另外記得返回類型一定會是any。</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> notSure: <span class="built_in">any</span> = <span class="number">4</span></span><br><span class="line">notSure = <span class="string">'maybe it is a string'</span></span><br><span class="line">notSure = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 屬型和方法也可以被調用</span></span><br><span class="line">notSure.myName</span><br><span class="line">notSure.getName()</span><br></pre></td></tr></table></figure>
+<h5 id="聯合類型"><a class="header-anchor" href="#聯合類型">¶</a>聯合類型</h5>
+<blockquote>
+<p>應用狀況：只能使用特定允許的類型</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> numberOrString: <span class="built_in">number</span> | <span class="built_in">string</span> = <span class="number">234</span></span><br><span class="line">numberOrString = <span class="string">'abc'</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>TypeScript學習筆記</category>
+      </categories>
+      <tags>
+        <tag>TypeScript</tag>
+        <tag>學習心得</tag>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>TypeScript 學習系列 | 函式推斷與類(class)的方法</title>
     <url>/2020/06/03/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-%E5%87%BD%E5%BC%8F%E6%8E%A8%E6%96%B7%E8%88%87%E9%A1%9E(class)%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9F/</url>
     <content><![CDATA[<h3 id="Function-函式"><a class="header-anchor" href="#Function-函式">¶</a>Function 函式</h3>
@@ -233,6 +191,62 @@ z = 10，默認 z 為 number 的寫法（ES6)</p>
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> Dog <span class="keyword">extends</span> Animal &#123;</span><br><span class="line">	bark() &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> is barking`</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> baobao = <span class="keyword">new</span> Dog(<span class="string">'baobao'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(baobao.run()) <span class="comment">// baobao.run is running</span></span><br><span class="line"><span class="built_in">console</span>.log(baobao.bark()) <span class="comment">// baobao.run is barking</span></span><br></pre></td></tr></table></figure>
 <p>前面有提到，雖然動物都會叫，可是叫聲可能會不一樣，接下來要提到多形(polymorphism)的概念和方法。在貓咪類別中利用父類別的 run 方法，加上子類別自己特別的行為。允許在程式上只要制定好一個類別，能使用來操作不同物件。</p>
 <figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> Cat <span class="keyword">extends</span> Animal &#123;</span><br><span class="line">	<span class="comment">// 指到父類別的變數，需要使用 super</span></span><br><span class="line">	<span class="keyword">constructor</span>(<span class="params">name</span>) &#123;</span><br><span class="line">		<span class="keyword">super</span>(name)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// overriding 貓咪叫聲</span></span><br><span class="line">	run() &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">'Meow, '</span> + <span class="keyword">super</span>.run()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> maomao = <span class="keyword">new</span> Cat(<span class="string">'maomao'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(maomao.run())</span><br><span class="line"><span class="comment">//Meow, maomao is running</span></span><br></pre></td></tr></table></figure>
+<h4 id="Class-修飾符"><a class="header-anchor" href="#Class-修飾符">¶</a>Class 修飾符</h4>
+<blockquote>
+<p>修飾符包含：public, private, protected, readonly。使用修飾符是為了對變數和方法進行權限的管理，不讓自己類別外的成員任意調用或是改變值。</p>
+</blockquote>
+<h5 id="1-public"><a class="header-anchor" href="#1-public">¶</a>1. public</h5>
+<p>public 顧名思義就是公開，可以公開被讀取和寫入。<br>
+以剛剛的例子來說，可以在 name 之前加上修飾符 private，那麼創造出來的物件就無法任意改動 name 的值。</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> Animal &#123;</span><br><span class="line">	<span class="keyword">private</span> name: <span class="built_in">string</span>;</span><br><span class="line">		<span class="keyword">constructor</span>(<span class="params">name: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name</span><br><span class="line">	&#125;</span><br><span class="line">	run() &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> is running`</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">snake.name = <span class="string">'Eric'</span> <span class="comment">// 會報錯</span></span><br><span class="line"><span class="built_in">console</span>.log(snake.name)</span><br></pre></td></tr></table></figure>
+<h5 id="2-private-protected-readonly"><a class="header-anchor" href="#2-private-protected-readonly">¶</a>2. private / protected / readonly</h5>
+<p>將 name 的權限設成 private，所以只有自身類別可以存取使用。那如果希望可以被子類別訪問呢？則可以使用 protected。 最後 readonly 則是只能取得值而無法被更改。</p>
+<p><img src="https://upload.cc/i1/2020/06/04/ZmvnCQ.png" alt="example"></p>
+<h5 id="3-static"><a class="header-anchor" href="#3-static">¶</a>3. static</h5>
+<p>static 屬於不會被實例化的屬性，也可以稱作靜態方法，假如類的定義和實例沒有太大關係，可以寫成靜態方法。</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> Animal &#123;</span><br><span class="line">	readonly name: <span class="built_in">string</span>;</span><br><span class="line">	<span class="comment">// 靜態方法</span></span><br><span class="line">	<span class="keyword">static</span> categories: <span class="built_in">string</span>[] = [<span class="string">'mammal'</span>, <span class="string">'bird'</span>]</span><br><span class="line">	<span class="keyword">static</span> isAnimal(a) &#123;</span><br><span class="line">		<span class="keyword">return</span> a <span class="keyword">instanceof</span> Animal</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">constructor</span>(<span class="params">name: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name</span><br><span class="line">	&#125;</span><br><span class="line">	run() &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> is running`</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Animal.categories) <span class="comment">//[ 'mammal', 'bird' ]</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.isAnimal(snake)) <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>TypeScript學習筆記</category>
+      </categories>
+      <tags>
+        <tag>TypeScript</tag>
+        <tag>學習心得</tag>
+        <tag>前端</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>TypeScript 學習系列 | Array, Tuple 和 interface 使用</title>
+    <url>/2020/04/19/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-Array-Tuple-%E5%92%8C-interface-%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h3 id="Array"><a class="header-anchor" href="#Array">¶</a>Array</h3>
+<p>可以將陣列的元素強制定義為某一個特定的類型，只要在類型的後面加上陣列的括號 [] 即可。</p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 陣列裡面全部要是數字</span></span><br><span class="line"><span class="keyword">let</span> arrOFNumber: <span class="built_in">number</span>[] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">arrOFNumber.push(<span class="number">5</span>)</span><br><span class="line">arrOFNumber.push(<span class="string">'str'</span>) <span class="comment">//會報錯</span></span><br></pre></td></tr></table></figure>
+<a id="more"></a>
+<h3 id="Tuple"><a class="header-anchor" href="#Tuple">¶</a>Tuple</h3>
+<p>Tuple的中文可以翻成「元組」，學過 Python 的人對這個資料結構應該比較熟悉。</p>
+<blockquote>
+<p>應用狀況：陣列裡包含除了某特定元素外的類型</p>
+</blockquote>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> users: [<span class="built_in">string</span>, <span class="built_in">number</span>] = [<span class="string">'emma'</span>, <span class="number">20</span>]</span><br><span class="line">user = [<span class="string">'Andy'</span>, <span class="number">2</span>, <span class="literal">true</span>] <span class="comment">// true為布林值，會報錯</span></span><br></pre></td></tr></table></figure>
+<h3 id="Object"><a class="header-anchor" href="#Object">¶</a>Object</h3>
+<h4 id="TypeScript-的-Interface"><a class="header-anchor" href="#TypeScript-的-Interface">¶</a>TypeScript 的 Interface:</h4>
+<ol>
+<li>針對使用對象的型態(shape)進行約束，例如屬性或是方法。</li>
+<li>對類(class)進行抽象。</li>
+<li>Duck typing：動態類型語言會推測資料的型別，比起關注資料類型，更加在意資料如何被使用。</li>
+</ol>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 建議 class 的字首大寫表示為 interface</span></span><br><span class="line"><span class="comment">// 注意使用分號「;」結尾</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">	name: <span class="built_in">string</span>;</span><br><span class="line">	age: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 不能減少或是增加屬性，否則會報錯</span></span><br><span class="line"><span class="keyword">let</span> emma: Person = &#123;</span><br><span class="line">	name: <span class="string">'emma'</span>,</span><br><span class="line">	age: <span class="number">20</span>,</span><br><span class="line">	gender: <span class="string">'female'</span> <span class="comment">//報錯</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="可選屬性"><a class="header-anchor" href="#可選屬性">¶</a>可選屬性</h4>
+<p>如果 interface 只能依照上面方法使用會沒有彈性。因此可選屬性能夠幫忙解決這個問題，有或沒有都不影響。</p>
+<p><strong>使用方法：在變數名稱後面加上問號</strong></p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">	name: <span class="built_in">string</span>;</span><br><span class="line">	age?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="唯讀屬性"><a class="header-anchor" href="#唯讀屬性">¶</a>唯讀屬性</h4>
+<p>複製 class 的時候才使用，只能用在屬性上，且不能被更改賦予的值。</p>
+<p><strong>使用方法：在變數名稱前加上 readonly</strong></p>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">	readonly id: <span class="built_in">number</span>;</span><br><span class="line">	name: <span class="built_in">string</span>;</span><br><span class="line">	age?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>強制更改值的話會報錯</p>
+<p><img src="https://upload.cc/i1/2020/04/19/ZxnP7i.png" alt="example"></p>
 ]]></content>
       <categories>
         <category>TypeScript學習筆記</category>
