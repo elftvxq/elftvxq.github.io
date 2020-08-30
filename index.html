@@ -173,6 +173,244 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://elftvxq.github.io/2020/08/30/JavaScript%E6%AF%8F%E6%97%A5%E8%80%83%E9%A1%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Emma Shih">
+      <meta itemprop="description" content="喜歡閱讀、聽音樂和看各種劇。最近的嗜好是撿樹枝和運動放鬆(空)。這裡紀錄學習網頁開發和程式的相關知識以及遇到的疑難雜症。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="真露島(๑´ㅂ`๑)">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/30/JavaScript%E6%AF%8F%E6%97%A5%E8%80%83%E9%A1%8C/" class="post-title-link" itemprop="url">JavaScript 每日考題 | Day 1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+              
+
+              <time title="創建時間：2020-08-30 22:54:45 / 修改時間：22:56:15" itemprop="dateCreated datePublished" datetime="2020-08-30T22:54:45+08:00">2020-08-30</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分類於</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/JavaScript/" itemprop="url" rel="index"><span itemprop="name">JavaScript</span></a>
+                </span>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/08/30/JavaScript%E6%AF%8F%E6%97%A5%E8%80%83%E9%A1%8C/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/08/30/JavaScript每日考題/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>1 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="1-以下程式碼片段，請問-a-length-的值是多少？"><a class="header-anchor" href="#1-以下程式碼片段，請問-a-length-的值是多少？">¶</a>1. 以下程式碼片段，請問 a.length 的值是多少？</h4>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a=[]; </span><br><span class="line">a[<span class="number">0</span>]=<span class="number">1</span>; </span><br><span class="line">a[<span class="number">1</span>]=<span class="number">2</span>; </span><br><span class="line">a[<span class="number">2</span>]=<span class="number">3</span>; </span><br><span class="line">a[<span class="number">5</span>]=<span class="number">4</span>;</span><br></pre></td></tr></table></figure>
+<p>選項：<br>
+A. 會報錯<br>
+B. 3<br>
+C. 4<br>
+D. 6</p>
+<h5 id="答案-6"><a class="header-anchor" href="#答案-6">¶</a>答案: 6</h5>
+<p>解析：本來以為答案是會報錯，原來沒有賦值的元素會自動給 undefined。所以陣列a會是這樣：</p>
+<blockquote>
+<p>Array[6]<br>
+0: 1<br>
+1: 2<br>
+2: 3<br>
+3:undefined<br>
+4:undefined<br>
+5: 4<br>
+length: 6</p>
+</blockquote>
+<h4 id="2-請問在-JavaScript-程式中，alert-undefined-null-的輸出結果是？"><a class="header-anchor" href="#2-請問在-JavaScript-程式中，alert-undefined-null-的輸出結果是？">¶</a>2. 請問在 JavaScript 程式中，alert(undefined==null)的輸出結果是？</h4>
+<p>選項：<br>
+A. null<br>
+B. undefiend<br>
+C. true<br>
+D. false<br>
+E. 以上答案皆不正確</p>
+<h5 id="答案：true"><a class="header-anchor" href="#答案：true">¶</a>答案：true</h5>
+<p>解析：<br>
+這題問法有些為不嚴謹，第一個想法是在兩個等號比較值的狀況下，會想先把 undefined 和 null 轉成數字，undefiened 是 NaN，null 則為 0，所以一開始選了 fasle。後來查了資料發現，兩個運算符比較這兩個形態會是true，undefined 和 null 如果被放在 if 當中，都會被視作為 false，是比較特殊的地方。</p>
+<p>如果是use strict 的條件下，會是 false。</p>
+<p>額外補充：<br>
+== 比較兩者的值，=== 較為嚴謹還需比較型態。如果是三個等號的問法，undefined 類型為 undefined，null 類型為 object。</p>
+<h4 id="3-請問-a-的結果是什麼？"><a class="header-anchor" href="#3-請問-a-的結果是什麼？">¶</a>3. 請問 a 的結果是什麼？</h4>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(! <span class="string">"a"</span> <span class="keyword">in</span> <span class="built_in">window</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">alert(a);</span><br></pre></td></tr></table></figure>
+<p>選項：<br>
+A. null<br>
+B. 1<br>
+C. undefiend<br>
+D. 以上答案皆不正確</p>
+<h5 id="答案-C"><a class="header-anchor" href="#答案-C">¶</a>答案: C</h5>
+<p>解析：<br>
+先解讀函式，假如變數 a 沒有在 window，就不會進入到條件式中。如果有 a ，a 則等於 1。</p>
+<p>var 宣告變數會被 hoisting，所以這段程式碼應該會是以下這樣：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a</span><br><span class="line"><span class="keyword">if</span>(! <span class="string">"a"</span> <span class="keyword">in</span> <span class="built_in">window</span>)&#123;</span><br><span class="line">    a = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">alert(a);</span><br></pre></td></tr></table></figure>
+<p>a 其實是全域變數，不會進入到條件式中，alert(a)但是 a 尚未被賦值，答案是 undefined。</p>
+<h4 id="4-請給出這段程式碼的執行結果"><a class="header-anchor" href="#4-請給出這段程式碼的執行結果">¶</a>4. 請給出這段程式碼的執行結果?</h4>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> bb = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">aa</span>(<span class="params">bb</span>) </span>&#123;</span><br><span class="line">    bb = <span class="number">2</span>;</span><br><span class="line">    alert(bb);</span><br><span class="line">&#125;;</span><br><span class="line">aa(bb);</span><br><span class="line">alert(bb);</span><br></pre></td></tr></table></figure>
+<p>選項：<br>
+A. 11<br>
+B. 12<br>
+C. 21<br>
+D. 22</p>
+<h5 id="答案：C"><a class="header-anchor" href="#答案：C">¶</a>答案：Ｃ</h5>
+<p>解析：<br>
+alert(bb)取全域變數 bb 的值為 1 沒有問題，比較需要思考的是 function aa 裡的 bb。bb 是參數，不是被定義為全局面量，所以並不會覆蓋到 第一行 var bb = 1。</p>
+<p>其實是像這樣：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> bb =<span class="number">1</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">aa</span>(<span class="params">bb</span>) </span>&#123;<span class="comment">// 這裏隱藏了一個宣告變量， var bb；</span></span><br><span class="line"> </span><br><span class="line">   bb = <span class="number">2</span>;<span class="comment">// 對函式作用域進行賦值  bb = 2 ；</span></span><br><span class="line"> </span><br><span class="line">   alert(bb);<span class="comment">//弹出 bb 的值 2；</span></span><br><span class="line"> </span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">aa(bb);</span><br><span class="line"> </span><br><span class="line">alert(bb);<span class="comment">// 根據 RHS 查找變數 bb，變數值為 1</span></span><br></pre></td></tr></table></figure>
+<p>使用函數的形參形成的私有變量，必須要把這個變量賦值給另外一個變量才可以使用，也就是獲得到形參的值。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
+    <link itemprop="mainEntityOfPage" href="https://elftvxq.github.io/2020/08/26/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-ENUM/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpg">
+      <meta itemprop="name" content="Emma Shih">
+      <meta itemprop="description" content="喜歡閱讀、聽音樂和看各種劇。最近的嗜好是撿樹枝和運動放鬆(空)。這裡紀錄學習網頁開發和程式的相關知識以及遇到的疑難雜症。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="真露島(๑´ㅂ`๑)">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/26/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-ENUM/" class="post-title-link" itemprop="url">TypeScript-學習系列-ENUM</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">發表於</span>
+
+              <time title="創建時間：2020-08-26 18:02:18" itemprop="dateCreated datePublished" datetime="2020-08-26T18:02:18+08:00">2020-08-26</time>
+            </span>
+
+          
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus：</span>
+    
+    <a title="disqus" href="/2020/08/26/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-ENUM/#disqus_thread" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="2020/08/26/TypeScript-學習系列-ENUM/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  <br>
+            <span class="post-meta-item" title="文章字數">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">文章字數：</span>
+              <span>0</span>
+            </span>
+            <span class="post-meta-item" title="所需閱讀時間">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">所需閱讀時間 &asymp;</span>
+              <span>1 分鐘</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-TW">
     <link itemprop="mainEntityOfPage" href="https://elftvxq.github.io/2020/06/03/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-%E5%87%BD%E5%BC%8F%E6%8E%A8%E6%96%B7%E8%88%87%E9%A1%9E(class)%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -675,14 +913,14 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">4</span>
+          <span class="site-state-item-count">6</span>
           <span class="site-state-item-name">文章</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">分類</span></a>
       </div>
       <div class="site-state-item site-state-tags">
@@ -735,12 +973,12 @@
     <span class="post-meta-item-icon">
       <i class="fa fa-chart-area"></i>
     </span>
-    <span title="總字數">8k</span>
+    <span title="總字數">9k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
-    <span title="所需總閱讀時間">7 分鐘</span>
+    <span title="所需總閱讀時間">8 分鐘</span>
 </div>
   <div class="addthis_inline_share_toolbox">
     <script src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5e99dd4b60bed6ba" async="async"></script>
