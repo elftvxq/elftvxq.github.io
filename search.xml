@@ -80,11 +80,11 @@ Explanation: There are 4 substrings: “10”, “01”, “10”, “01” that
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (str) =&gt; &#123;</span><br><span class="line">        <span class="comment">//建立數字對應字母</span></span><br><span class="line">        <span class="keyword">let</span> map =[<span class="string">''</span>,<span class="number">1</span>, <span class="string">'abc'</span>, <span class="string">'def'</span>, <span class="string">'ghi'</span>, <span class="string">'jkl'</span>, <span class="string">'mno'</span>, <span class="string">'pqrs'</span>, <span class="string">'tux'</span>, <span class="string">'wxyz'</span>]</span><br><span class="line">        <span class="comment">//把輸入字串按照單字分隔，234=&gt;2,3,4</span></span><br><span class="line">        <span class="keyword">let</span> num = str.split(<span class="string">''</span>);</span><br><span class="line">        <span class="comment">// 保存鍵盤映射的字母內容，23=&gt;[abc, def]</span></span><br><span class="line">        <span class="keyword">let</span> code = []</span><br><span class="line">        num.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(map[item])&#123;</span><br><span class="line">                code.push(map[item])</span><br><span class="line">            &#125;       </span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="built_in">console</span>.log(code);</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">let</span> comb = <span class="function">(<span class="params">arr</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">//臨時變量，用來保存前兩個組合的結果</span></span><br><span class="line">           <span class="keyword">let</span> temp = []; </span><br><span class="line">           <span class="comment">// 最外層的循環式是跑遍第一個元素，第二個循環是跑遍第二個元素</span></span><br><span class="line">           <span class="keyword">let</span> il = arr[<span class="number">0</span>].length;</span><br><span class="line">           <span class="keyword">let</span> jl = arr[<span class="number">1</span>].length; </span><br><span class="line">           <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; il ; i++) &#123;     </span><br><span class="line">               <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; jl; j++) &#123;</span><br><span class="line">                   temp.push(<span class="string">`<span class="subst">$&#123;arr[<span class="number">0</span>][i]&#125;</span><span class="subst">$&#123;arr[<span class="number">1</span>][j]&#125;</span>`</span>)</span><br><span class="line">               &#125;</span><br><span class="line">           &#125; </span><br><span class="line">    				<span class="comment">//替換掉一開始組合的2,3，準備跟下一個繼續尬for迴圈</span></span><br><span class="line">           arr.splice(<span class="number">0</span>, <span class="number">2</span>, temp);</span><br><span class="line">    				<span class="comment">//如果還有長度繼續尬</span></span><br><span class="line">           <span class="keyword">if</span>(arr.length &gt; <span class="number">1</span> )&#123;</span><br><span class="line">               comb(arr)</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    				<span class="comment">//沒有就把陣列返回就好</span></span><br><span class="line">               <span class="keyword">return</span> temp;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">//最後是要返回陣列的第一個組合</span></span><br><span class="line">           <span class="keyword">return</span> arr[<span class="number">0</span>];</span><br><span class="line">             </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> comb(code);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
-        <category>leetcode 刷題</category>
+        <category>Leetcode 刷題</category>
       </categories>
       <tags>
         <tag>JavaScript</tag>
-        <tag>leetcode</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
   <entry>
@@ -157,7 +157,7 @@ alert(bb)取全域變數 bb 的值為 1 沒有問題，比較需要思考的是 
         <category>JavaScript</category>
       </categories>
       <tags>
-        <tag>JavaScript練習</tag>
+        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -198,8 +198,6 @@ alert(bb)取全域變數 bb 的值為 1 沒有問題，比較需要思考的是 
       </categories>
       <tags>
         <tag>TypeScript</tag>
-        <tag>學習心得</tag>
-        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
@@ -264,8 +262,6 @@ hello('emma')
       </categories>
       <tags>
         <tag>TypeScript</tag>
-        <tag>學習心得</tag>
-        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
@@ -326,8 +322,6 @@ z = 10，默認 z 為 number 的寫法（ES6)</p>
       </categories>
       <tags>
         <tag>TypeScript</tag>
-        <tag>學習心得</tag>
-        <tag>前端</tag>
       </tags>
   </entry>
   <entry>
@@ -443,11 +437,11 @@ var splitListToParts = function(head, k) {
 </code></pre>
 ]]></content>
       <categories>
-        <category>leetcode 刷題</category>
+        <category>Leetcode 刷題</category>
       </categories>
       <tags>
         <tag>JavaScript</tag>
-        <tag>leetcode</tag>
+        <tag>Leetcode</tag>
       </tags>
   </entry>
 </search>
