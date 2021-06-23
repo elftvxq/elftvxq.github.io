@@ -1,6 +1,199 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>Leetcode No. 725. Split Linked List in Parts 📒</title>
+    <url>/2021/06/23/Leetcode%20No.725.%20Split%20Linked%20List%20in%20Parts/</url>
+    <content><![CDATA[<blockquote>
+<p>題號：No.725</p>
+<p>類型：LinkedList</p>
+<p>難度：medium</p>
+<p>使用語言：JavaScript</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="題目"><a class="header-anchor" href="#題目">¶</a>題目</h3>
+<p>Given the head of a singly linked list and an integer k, split the linked list into k consecutive linked list parts.</p>
+<p>The length of each part should be as equal as possible: no two parts should have a size differing by more than one. This may lead to some parts being null.</p>
+<p>The parts should be in the order of occurrence in the input list, and parts occurring earlier should always have a size greater than or equal to parts occurring later.</p>
+<p>Return an array of the k parts.</p>
+<h5 id="Example-1"><a class="header-anchor" href="#Example-1">¶</a>Example 1:</h5>
+<blockquote>
+<p>範例<br>
+Input: head = [1,2,3], k = 5<br>
+Output: [[1],[2],[3],[],[]]<br>
+Explanation:<br>
+The first element output[0] has output[0].val = 1, output[0].next = null.<br>
+The last element output[4] is null, but its string representation as a ListNode is [].</p>
+</blockquote>
+<h5 id="Example-2"><a class="header-anchor" href="#Example-2">¶</a>Example 2:</h5>
+<blockquote>
+<p>Input: head = [1,2,3,4,5,6,7,8,9,10], k = 3<br>
+Output: [[1,2,3,4],[5,6,7],[8,9,10]]<br>
+Explanation:<br>
+The input has been split into consecutive parts with size difference at most 1, and earlier parts are a larger size than the later parts.</p>
+</blockquote>
+<h6 id="Constraints"><a class="header-anchor" href="#Constraints">¶</a>Constraints:</h6>
+<ul>
+<li>The number of nodes in the list is in the range [0, 1000].</li>
+<li>0 &lt;= Node.val &lt;= 1000</li>
+<li>1 &lt;= k &lt;= 50</li>
+</ul>
+<hr>
+<h3 id="解題切入的知識點"><a class="header-anchor" href="#解題切入的知識點">¶</a>解題切入的知識點</h3>
+<ol>
+<li>LinkedList 長度沒有內建的 function 可以使用，把取得長度的方式記起來!</li>
+<li>有點 tricky 是每組的長度判斷，先取最低值(Math.floor)，判斷剩下個數數量是否要加回數組長度</li>
+<li>放 node 回陣列逐一扣除數組長度後，要 handle 長度剩下 1 的狀況</li>
+<li>需要多宣告一個變數 t2 紀錄當前 head，並把 pointer 指向 null</li>
+</ol>
+<hr>
+<h3 id="解法"><a class="header-anchor" href="#解法">¶</a>解法</h3>
+<p>思考邏輯：</p>
+<ol>
+<li>首先要先求得 LinkedList 中 node 的個數，使用變數 n 紀錄 (沒有方法可以直接取得長度，沒有!!)</li>
+<li>接著要計算分成 k 組數的每組長度要多長，用 Math.floor 取得至少每組要有的個數 (無條件捨去，0.x 個 node 不能算一個)</li>
+<li>接著取得除以 k 組後剩餘的 node 個數</li>
+<li>迴圈從第一個數開始，要先判斷當前組數該放幾個數，判斷方法：剩餘的個數如果 &gt; 0，組數長度+1，扣除一個剩餘組數</li>
+<li>宣告 t1 等於 root</li>
+<li>長度不為0要一直跑 while 迴圈</li>
+<li>handle 假如長度只剩下1，宣告一變數 t2，t2 為當前 root，接著要接當前 root node 向前移動，t2 的 pointer 為 null (因為陣列長度只夠放下一個數字）</li>
+<li>假如長度不為0，root node 向下一個 node 移動，扣掉長度1</li>
+<li>把 t1 放回數組</li>
+</ol>
+<pre><code class="language-/**"> * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode[]}
+ */
+var splitListToParts = function(head, k) {
+    let temp = head
+    let size = 0 // to record the linkedlist length
+    
+    // get length
+    while(temp){
+        size++
+        temp = temp.next
+    }
+    
+    let len = Math.floor(size / k) // each group length
+    let realLen // to record the real length of each group 
+    let cnt = size % k // remaining nodes
+    let res = [] 
+    
+    for(let i = 0; i&lt;k; i++){
+        if(cnt &gt; 0) {
+            realLen = len + 1
+            cnt --
+        } else {
+            realLen = len
+        }
+        
+        let t1 = head //get the current node
+        
+        while(realLen &gt; 0) { //put val to the array if the length 
+            
+           if(realLen === 1){
+               let t2 = head
+               head = head.next
+               t2.next = null
+           } else {
+               head = head.next //keep iterating to the next node
+           }  
+            realLen --
+        }
+        res.push(t1)
+    }
+    return res
+};
+</code></pre>
+]]></content>
+      <categories>
+        <category>Leetcode 刷題</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>Leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>JavaScript 觀念測試 | 01</title>
+    <url>/2020/08/30/JavaScript%E6%AF%8F%E6%97%A5%E8%80%83%E9%A1%8C/</url>
+    <content><![CDATA[<blockquote>
+<p>前言：<br>
+先前讀《超速學習》，其中有一個學習方式是直接透過考題驗證自己學習的東西是不是正確，並且要有即時的反饋才能修正錯誤。在讀了一些 JavaScript 的觀念後，也想驗證自己是否真的理解且吸收，因此在網路上找了一些考題，把比較有趣的記錄下來，並且寫下解題思路。</p>
+</blockquote>
+<h4 id="1-以下程式碼片段，請問-a-length-的值是多少？"><a class="header-anchor" href="#1-以下程式碼片段，請問-a-length-的值是多少？">¶</a>1. 以下程式碼片段，請問 a.length 的值是多少？</h4>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a=[]; </span><br><span class="line">a[<span class="number">0</span>]=<span class="number">1</span>; </span><br><span class="line">a[<span class="number">1</span>]=<span class="number">2</span>; </span><br><span class="line">a[<span class="number">2</span>]=<span class="number">3</span>; </span><br><span class="line">a[<span class="number">5</span>]=<span class="number">4</span>;</span><br></pre></td></tr></table></figure>
+<p>選項：<br>
+A. 會報錯<br>
+B. 3<br>
+C. 4<br>
+D. 6</p>
+<h5 id="答案-6"><a class="header-anchor" href="#答案-6">¶</a>答案: 6</h5>
+<p>解析：本來以為答案是會報錯，原來沒有賦值的元素會自動給 undefined。所以陣列 a 會是這樣：</p>
+<blockquote>
+<p>Array[6]<br>
+0: 1<br>
+1: 2<br>
+2: 3<br>
+3:undefined<br>
+4:undefined<br>
+5: 4<br>
+length: 6</p>
+</blockquote>
+<h4 id="2-請問在-JavaScript-程式中，alert-undefined-null-的輸出結果是？"><a class="header-anchor" href="#2-請問在-JavaScript-程式中，alert-undefined-null-的輸出結果是？">¶</a>2. 請問在 JavaScript 程式中，alert(undefined==null)的輸出結果是？</h4>
+<p>選項：<br>
+A. null<br>
+B. undefiend<br>
+C. true<br>
+D. false<br>
+E. 以上答案皆不正確</p>
+<h5 id="答案：true"><a class="header-anchor" href="#答案：true">¶</a>答案：true</h5>
+<p>解析：<br>
+這題問法有些為不嚴謹，第一個想法是在兩個等號比較值的狀況下，會想先把 undefined 和 null 轉成數字，undefiened 是 NaN，null 則為 0，所以一開始選了 fasle。後來查了資料發現，兩個運算符比較這兩個形態會是true，undefined 和 null 如果被放在 if 當中，都會被視作為 false，是比較特殊的地方。</p>
+<p>如果是use strict 的條件下，會是 false。</p>
+<p>額外補充：<br>
+== 比較兩者的值，=== 較為嚴謹還需比較型態。如果是三個等號的問法，undefined 類型為 undefined，null 類型為 object。</p>
+<h4 id="3-請問-a-的結果是什麼？"><a class="header-anchor" href="#3-請問-a-的結果是什麼？">¶</a>3. 請問 a 的結果是什麼？</h4>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(! <span class="string">"a"</span> <span class="keyword">in</span> <span class="built_in">window</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">alert(a);</span><br></pre></td></tr></table></figure>
+<p>選項：<br>
+A. null<br>
+B. 1<br>
+C. undefiend<br>
+D. 以上答案皆不正確</p>
+<h5 id="答案-C"><a class="header-anchor" href="#答案-C">¶</a>答案: C</h5>
+<p>解析：<br>
+先解讀函式，假如變數 a 沒有在 window，就不會進入到條件式中。如果有 a ，a 則等於 1。</p>
+<p>var 宣告變數會被 hoisting，所以這段程式碼應該會是以下這樣：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a</span><br><span class="line"><span class="keyword">if</span>(! <span class="string">"a"</span> <span class="keyword">in</span> <span class="built_in">window</span>)&#123;</span><br><span class="line">    a = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">alert(a);</span><br></pre></td></tr></table></figure>
+<p>a 其實是全域變數，不會進入到條件式中，alert(a)但是 a 尚未被賦值，答案是 undefined。</p>
+<h4 id="4-請給出這段程式碼的執行結果"><a class="header-anchor" href="#4-請給出這段程式碼的執行結果">¶</a>4. 請給出這段程式碼的執行結果?</h4>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bb = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">aa</span>(<span class="params">bb</span>) </span>&#123;</span><br><span class="line">    bb = <span class="number">2</span>;</span><br><span class="line">    alert(bb);</span><br><span class="line">&#125;;</span><br><span class="line">aa(bb);</span><br><span class="line">alert(bb);</span><br></pre></td></tr></table></figure>
+<p>選項：<br>
+A. 11<br>
+B. 12<br>
+C. 21<br>
+D. 22</p>
+<h5 id="答案：C"><a class="header-anchor" href="#答案：C">¶</a>答案：Ｃ</h5>
+<p>解析：<br>
+alert(bb)取全域變數 bb 的值為 1 沒有問題，比較需要思考的是 function aa 裡的 bb。bb 是參數，不是被定義為全局面量，所以並不會覆蓋到 第一行 var bb = 1。</p>
+<p>其實是像這樣：</p>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> bb =<span class="number">1</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">aa</span>(<span class="params">bb</span>) </span>&#123;<span class="comment">// 這裏隱藏了一個宣告變量， var bb；</span></span><br><span class="line"> </span><br><span class="line">   bb = <span class="number">2</span>;<span class="comment">// 對函式作用域進行賦值  bb = 2 ；</span></span><br><span class="line"> </span><br><span class="line">   alert(bb);<span class="comment">//弹出 bb 的值 2；</span></span><br><span class="line"> </span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">aa(bb);</span><br><span class="line"> </span><br><span class="line">alert(bb);<span class="comment">// 根據 RHS 查找變數 bb，變數值為 1</span></span><br></pre></td></tr></table></figure>
+<p>使用函數的形參形成的私有變量，必須要把這個變量賦值給另外一個變量才可以使用，也就是獲得到形參的值。</p>
+]]></content>
+      <categories>
+        <category>JavaScript</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+      </tags>
+  </entry>
+  <entry>
     <title>Leetcode No.696 Count Binary Substrings 📒</title>
     <url>/2020/04/17/Leetcode%20No.696%20Count%20Binary%20Substrings/</url>
     <content><![CDATA[<blockquote>
@@ -85,79 +278,6 @@ Explanation: There are 4 substrings: “10”, “01”, “10”, “01” that
       <tags>
         <tag>JavaScript</tag>
         <tag>Leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>JavaScript 觀念測試 | 01</title>
-    <url>/2020/08/30/JavaScript%E6%AF%8F%E6%97%A5%E8%80%83%E9%A1%8C/</url>
-    <content><![CDATA[<blockquote>
-<p>前言：<br>
-先前讀《超速學習》，其中有一個學習方式是直接透過考題驗證自己學習的東西是不是正確，並且要有即時的反饋才能修正錯誤。在讀了一些 JavaScript 的觀念後，也想驗證自己是否真的理解且吸收，因此在網路上找了一些考題，把比較有趣的記錄下來，並且寫下解題思路。</p>
-</blockquote>
-<h4 id="1-以下程式碼片段，請問-a-length-的值是多少？"><a class="header-anchor" href="#1-以下程式碼片段，請問-a-length-的值是多少？">¶</a>1. 以下程式碼片段，請問 a.length 的值是多少？</h4>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a=[]; </span><br><span class="line">a[<span class="number">0</span>]=<span class="number">1</span>; </span><br><span class="line">a[<span class="number">1</span>]=<span class="number">2</span>; </span><br><span class="line">a[<span class="number">2</span>]=<span class="number">3</span>; </span><br><span class="line">a[<span class="number">5</span>]=<span class="number">4</span>;</span><br></pre></td></tr></table></figure>
-<p>選項：<br>
-A. 會報錯<br>
-B. 3<br>
-C. 4<br>
-D. 6</p>
-<h5 id="答案-6"><a class="header-anchor" href="#答案-6">¶</a>答案: 6</h5>
-<p>解析：本來以為答案是會報錯，原來沒有賦值的元素會自動給 undefined。所以陣列 a 會是這樣：</p>
-<blockquote>
-<p>Array[6]<br>
-0: 1<br>
-1: 2<br>
-2: 3<br>
-3:undefined<br>
-4:undefined<br>
-5: 4<br>
-length: 6</p>
-</blockquote>
-<h4 id="2-請問在-JavaScript-程式中，alert-undefined-null-的輸出結果是？"><a class="header-anchor" href="#2-請問在-JavaScript-程式中，alert-undefined-null-的輸出結果是？">¶</a>2. 請問在 JavaScript 程式中，alert(undefined==null)的輸出結果是？</h4>
-<p>選項：<br>
-A. null<br>
-B. undefiend<br>
-C. true<br>
-D. false<br>
-E. 以上答案皆不正確</p>
-<h5 id="答案：true"><a class="header-anchor" href="#答案：true">¶</a>答案：true</h5>
-<p>解析：<br>
-這題問法有些為不嚴謹，第一個想法是在兩個等號比較值的狀況下，會想先把 undefined 和 null 轉成數字，undefiened 是 NaN，null 則為 0，所以一開始選了 fasle。後來查了資料發現，兩個運算符比較這兩個形態會是true，undefined 和 null 如果被放在 if 當中，都會被視作為 false，是比較特殊的地方。</p>
-<p>如果是use strict 的條件下，會是 false。</p>
-<p>額外補充：<br>
-== 比較兩者的值，=== 較為嚴謹還需比較型態。如果是三個等號的問法，undefined 類型為 undefined，null 類型為 object。</p>
-<h4 id="3-請問-a-的結果是什麼？"><a class="header-anchor" href="#3-請問-a-的結果是什麼？">¶</a>3. 請問 a 的結果是什麼？</h4>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(! <span class="string">"a"</span> <span class="keyword">in</span> <span class="built_in">window</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">alert(a);</span><br></pre></td></tr></table></figure>
-<p>選項：<br>
-A. null<br>
-B. 1<br>
-C. undefiend<br>
-D. 以上答案皆不正確</p>
-<h5 id="答案-C"><a class="header-anchor" href="#答案-C">¶</a>答案: C</h5>
-<p>解析：<br>
-先解讀函式，假如變數 a 沒有在 window，就不會進入到條件式中。如果有 a ，a 則等於 1。</p>
-<p>var 宣告變數會被 hoisting，所以這段程式碼應該會是以下這樣：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a</span><br><span class="line"><span class="keyword">if</span>(! <span class="string">"a"</span> <span class="keyword">in</span> <span class="built_in">window</span>)&#123;</span><br><span class="line">    a = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">alert(a);</span><br></pre></td></tr></table></figure>
-<p>a 其實是全域變數，不會進入到條件式中，alert(a)但是 a 尚未被賦值，答案是 undefined。</p>
-<h4 id="4-請給出這段程式碼的執行結果"><a class="header-anchor" href="#4-請給出這段程式碼的執行結果">¶</a>4. 請給出這段程式碼的執行結果?</h4>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bb = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">aa</span>(<span class="params">bb</span>) </span>&#123;</span><br><span class="line">    bb = <span class="number">2</span>;</span><br><span class="line">    alert(bb);</span><br><span class="line">&#125;;</span><br><span class="line">aa(bb);</span><br><span class="line">alert(bb);</span><br></pre></td></tr></table></figure>
-<p>選項：<br>
-A. 11<br>
-B. 12<br>
-C. 21<br>
-D. 22</p>
-<h5 id="答案：C"><a class="header-anchor" href="#答案：C">¶</a>答案：Ｃ</h5>
-<p>解析：<br>
-alert(bb)取全域變數 bb 的值為 1 沒有問題，比較需要思考的是 function aa 裡的 bb。bb 是參數，不是被定義為全局面量，所以並不會覆蓋到 第一行 var bb = 1。</p>
-<p>其實是像這樣：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> bb =<span class="number">1</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">aa</span>(<span class="params">bb</span>) </span>&#123;<span class="comment">// 這裏隱藏了一個宣告變量， var bb；</span></span><br><span class="line"> </span><br><span class="line">   bb = <span class="number">2</span>;<span class="comment">// 對函式作用域進行賦值  bb = 2 ；</span></span><br><span class="line"> </span><br><span class="line">   alert(bb);<span class="comment">//弹出 bb 的值 2；</span></span><br><span class="line"> </span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">aa(bb);</span><br><span class="line"> </span><br><span class="line">alert(bb);<span class="comment">// 根據 RHS 查找變數 bb，變數值為 1</span></span><br></pre></td></tr></table></figure>
-<p>使用函數的形參形成的私有變量，必須要把這個變量賦值給另外一個變量才可以使用，也就是獲得到形參的值。</p>
-]]></content>
-      <categories>
-        <category>JavaScript</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
       </tags>
   </entry>
   <entry>
@@ -322,126 +442,6 @@ z = 10，默認 z 為 number 的寫法（ES6)</p>
       </categories>
       <tags>
         <tag>TypeScript</tag>
-      </tags>
-  </entry>
-  <entry>
-    <title>Leetcode No. 725. Split Linked List in Parts 📒</title>
-    <url>/2021/06/23/Leetcode%20No.725.%20Split%20Linked%20List%20in%20Parts/</url>
-    <content><![CDATA[<blockquote>
-<p>題號：No.725</p>
-<p>類型：LinkedList</p>
-<p>難度：medium</p>
-<p>使用語言：JavaScript</p>
-</blockquote>
-<a id="more"></a>
-<h3 id="題目"><a class="header-anchor" href="#題目">¶</a>題目</h3>
-<p>Given the head of a singly linked list and an integer k, split the linked list into k consecutive linked list parts.</p>
-<p>The length of each part should be as equal as possible: no two parts should have a size differing by more than one. This may lead to some parts being null.</p>
-<p>The parts should be in the order of occurrence in the input list, and parts occurring earlier should always have a size greater than or equal to parts occurring later.</p>
-<p>Return an array of the k parts.</p>
-<h5 id="Example-1"><a class="header-anchor" href="#Example-1">¶</a>Example 1:</h5>
-<blockquote>
-<p>範例<br>
-Input: head = [1,2,3], k = 5<br>
-Output: [[1],[2],[3],[],[]]<br>
-Explanation:<br>
-The first element output[0] has output[0].val = 1, output[0].next = null.<br>
-The last element output[4] is null, but its string representation as a ListNode is [].</p>
-</blockquote>
-<h5 id="Example-2"><a class="header-anchor" href="#Example-2">¶</a>Example 2:</h5>
-<blockquote>
-<p>Input: head = [1,2,3,4,5,6,7,8,9,10], k = 3<br>
-Output: [[1,2,3,4],[5,6,7],[8,9,10]]<br>
-Explanation:<br>
-The input has been split into consecutive parts with size difference at most 1, and earlier parts are a larger size than the later parts.</p>
-</blockquote>
-<h6 id="Constraints"><a class="header-anchor" href="#Constraints">¶</a>Constraints:</h6>
-<ul>
-<li>The number of nodes in the list is in the range [0, 1000].</li>
-<li>0 &lt;= Node.val &lt;= 1000</li>
-<li>1 &lt;= k &lt;= 50</li>
-</ul>
-<hr>
-<h3 id="解題切入的知識點"><a class="header-anchor" href="#解題切入的知識點">¶</a>解題切入的知識點</h3>
-<ol>
-<li>LinkedList 長度沒有內建的 function 可以使用，把取得長度的方式記起來!</li>
-<li>有點 tricky 是每組的長度判斷，先取最低值(Math.floor)，判斷剩下個數數量是否要加回數組長度</li>
-<li>放 node 回陣列逐一扣除數組長度後，要 handle 長度剩下 1 的狀況</li>
-<li>需要多宣告一個變數 t2 紀錄當前 head，並把 pointer 指向 null</li>
-</ol>
-<hr>
-<h3 id="解法"><a class="header-anchor" href="#解法">¶</a>解法</h3>
-<p>思考邏輯：</p>
-<ol>
-<li>首先要先求得 LinkedList 中 node 的個數，使用變數 n 紀錄 (沒有方法可以直接取得長度，沒有!!)</li>
-<li>接著要計算分成 k 組數的每組長度要多長，用 Math.floor 取得至少每組要有的個數 (無條件捨去，0.x 個 node 不能算一個)</li>
-<li>接著取得除以 k 組後剩餘的 node 個數</li>
-<li>迴圈從第一個數開始，要先判斷當前組數該放幾個數，判斷方法：剩餘的個數如果 &gt; 0，組數長度+1，扣除一個剩餘組數</li>
-<li>宣告 t1 等於 root</li>
-<li>長度不為0要一直跑 while 迴圈</li>
-<li>handle 假如長度只剩下1，宣告一變數 t2，t2 為當前 root，接著要接當前 root node 向前移動，t2 的 pointer 為 null (因為陣列長度只夠放下一個數字）</li>
-<li>假如長度不為0，root node 向下一個 node 移動，扣掉長度1</li>
-<li>把 t1 放回數組</li>
-</ol>
-<pre><code class="language-/**"> * Definition for singly-linked list.
- * function ListNode(val, next) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.next = (next===undefined ? null : next)
- * }
- */
-/**
- * @param {ListNode} head
- * @param {number} k
- * @return {ListNode[]}
- */
-var splitListToParts = function(head, k) {
-    let temp = head
-    let size = 0 // to record the linkedlist length
-    
-    // get length
-    while(temp){
-        size++
-        temp = temp.next
-    }
-    
-    let len = Math.floor(size / k) // each group length
-    let realLen // to record the real length of each group 
-    let cnt = size % k // remaining nodes
-    let res = [] 
-    
-    for(let i = 0; i&lt;k; i++){
-        if(cnt &gt; 0) {
-            realLen = len + 1
-            cnt --
-        } else {
-            realLen = len
-        }
-        
-        let t1 = head //get the current node
-        
-        while(realLen &gt; 0) { //put val to the array if the length 
-            
-           if(realLen === 1){
-               let t2 = head
-               head = head.next
-               t2.next = null
-           } else {
-               head = head.next //keep iterating to the next node
-           }  
-            realLen --
-        }
-        res.push(t1)
-    }
-    return res
-};
-</code></pre>
-]]></content>
-      <categories>
-        <category>Leetcode 刷題</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>Leetcode</tag>
       </tags>
   </entry>
 </search>
