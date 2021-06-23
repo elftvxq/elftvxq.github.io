@@ -1,126 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
-    <title>Leetcode No. 725. Split Linked List in Parts 📒</title>
-    <url>/2021/06/23/Leetcode%20No.725.%20Split%20Linked%20List%20in%20Parts/</url>
-    <content><![CDATA[<blockquote>
-<p>題號：No.725</p>
-<p>類型：LinkedList</p>
-<p>難度：medium</p>
-<p>使用語言：JavaScript</p>
-</blockquote>
-<a id="more"></a>
-<h3 id="題目"><a class="header-anchor" href="#題目">¶</a>題目</h3>
-<p>Given the head of a singly linked list and an integer k, split the linked list into k consecutive linked list parts.</p>
-<p>The length of each part should be as equal as possible: no two parts should have a size differing by more than one. This may lead to some parts being null.</p>
-<p>The parts should be in the order of occurrence in the input list, and parts occurring earlier should always have a size greater than or equal to parts occurring later.</p>
-<p>Return an array of the k parts.</p>
-<h5 id="Example-1"><a class="header-anchor" href="#Example-1">¶</a>Example 1:</h5>
-<blockquote>
-<p>範例<br>
-Input: head = [1,2,3], k = 5<br>
-Output: [[1],[2],[3],[],[]]<br>
-Explanation:<br>
-The first element output[0] has output[0].val = 1, output[0].next = null.<br>
-The last element output[4] is null, but its string representation as a ListNode is [].</p>
-</blockquote>
-<h5 id="Example-2"><a class="header-anchor" href="#Example-2">¶</a>Example 2:</h5>
-<blockquote>
-<p>Input: head = [1,2,3,4,5,6,7,8,9,10], k = 3<br>
-Output: [[1,2,3,4],[5,6,7],[8,9,10]]<br>
-Explanation:<br>
-The input has been split into consecutive parts with size difference at most 1, and earlier parts are a larger size than the later parts.</p>
-</blockquote>
-<h6 id="Constraints"><a class="header-anchor" href="#Constraints">¶</a>Constraints:</h6>
-<ul>
-<li>The number of nodes in the list is in the range [0, 1000].</li>
-<li>0 &lt;= Node.val &lt;= 1000</li>
-<li>1 &lt;= k &lt;= 50</li>
-</ul>
-<hr>
-<h3 id="解題切入的知識點"><a class="header-anchor" href="#解題切入的知識點">¶</a>解題切入的知識點</h3>
-<ol>
-<li>LinkedList 長度沒有內建的 function 可以使用，把取得長度的方式記起來!</li>
-<li>有點 tricky 是每組的長度判斷，先取最低值(Math.floor)，判斷剩下個數數量是否要加回數組長度</li>
-<li>放 node 回陣列逐一扣除數組長度後，要 handle 長度剩下 1 的狀況</li>
-<li>需要多宣告一個變數 t2 紀錄當前 head，並把 pointer 指向 null</li>
-</ol>
-<hr>
-<h3 id="解法"><a class="header-anchor" href="#解法">¶</a>解法</h3>
-<p>思考邏輯：</p>
-<ol>
-<li>首先要先求得 LinkedList 中 node 的個數，使用變數 n 紀錄 (沒有方法可以直接取得長度，沒有!!)</li>
-<li>接著要計算分成 k 組數的每組長度要多長，用 Math.floor 取得至少每組要有的個數 (無條件捨去，0.x 個 node 不能算一個)</li>
-<li>接著取得除以 k 組後剩餘的 node 個數</li>
-<li>迴圈從第一個數開始，要先判斷當前組數該放幾個數，判斷方法：剩餘的個數如果 &gt; 0，組數長度+1，扣除一個剩餘組數</li>
-<li>宣告 t1 等於 root</li>
-<li>長度不為0要一直跑 while 迴圈</li>
-<li>handle 假如長度只剩下1，宣告一變數 t2，t2 為當前 root，接著要接當前 root node 向前移動，t2 的 pointer 為 null (因為陣列長度只夠放下一個數字）</li>
-<li>假如長度不為0，root node 向下一個 node 移動，扣掉長度1</li>
-<li>把 t1 放回數組</li>
-</ol>
-<pre><code class="language-/**"> * Definition for singly-linked list.
- * function ListNode(val, next) {
- *     this.val = (val===undefined ? 0 : val)
- *     this.next = (next===undefined ? null : next)
- * }
- */
-/**
- * @param {ListNode} head
- * @param {number} k
- * @return {ListNode[]}
- */
-var splitListToParts = function(head, k) {
-    let temp = head
-    let size = 0 // to record the linkedlist length
-    
-    // get length
-    while(temp){
-        size++
-        temp = temp.next
-    }
-    
-    let len = Math.floor(size / k) // each group length
-    let realLen // to record the real length of each group 
-    let cnt = size % k // remaining nodes
-    let res = [] 
-    
-    for(let i = 0; i&lt;k; i++){
-        if(cnt &gt; 0) {
-            realLen = len + 1
-            cnt --
-        } else {
-            realLen = len
-        }
-        
-        let t1 = head //get the current node
-        
-        while(realLen &gt; 0) { //put val to the array if the length 
-            
-           if(realLen === 1){
-               let t2 = head
-               head = head.next
-               t2.next = null
-           } else {
-               head = head.next //keep iterating to the next node
-           }  
-            realLen --
-        }
-        res.push(t1)
-    }
-    return res
-};
-</code></pre>
-]]></content>
-      <categories>
-        <category>Leetcode 刷題</category>
-      </categories>
-      <tags>
-        <tag>JavaScript</tag>
-        <tag>Leetcode</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>JavaScript 觀念測試 | 01</title>
     <url>/2020/08/30/JavaScript%E6%AF%8F%E6%97%A5%E8%80%83%E9%A1%8C/</url>
     <content><![CDATA[<blockquote>
@@ -271,6 +151,126 @@ Explanation: There are 4 substrings: “10”, “01”, “10”, “01” that
 <li>最後面要返回 function</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (str) =&gt; &#123;</span><br><span class="line">        <span class="comment">//建立數字對應字母</span></span><br><span class="line">        <span class="keyword">let</span> map =[<span class="string">''</span>,<span class="number">1</span>, <span class="string">'abc'</span>, <span class="string">'def'</span>, <span class="string">'ghi'</span>, <span class="string">'jkl'</span>, <span class="string">'mno'</span>, <span class="string">'pqrs'</span>, <span class="string">'tux'</span>, <span class="string">'wxyz'</span>]</span><br><span class="line">        <span class="comment">//把輸入字串按照單字分隔，234=&gt;2,3,4</span></span><br><span class="line">        <span class="keyword">let</span> num = str.split(<span class="string">''</span>);</span><br><span class="line">        <span class="comment">// 保存鍵盤映射的字母內容，23=&gt;[abc, def]</span></span><br><span class="line">        <span class="keyword">let</span> code = []</span><br><span class="line">        num.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(map[item])&#123;</span><br><span class="line">                code.push(map[item])</span><br><span class="line">            &#125;       </span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="built_in">console</span>.log(code);</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">let</span> comb = <span class="function">(<span class="params">arr</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">//臨時變量，用來保存前兩個組合的結果</span></span><br><span class="line">           <span class="keyword">let</span> temp = []; </span><br><span class="line">           <span class="comment">// 最外層的循環式是跑遍第一個元素，第二個循環是跑遍第二個元素</span></span><br><span class="line">           <span class="keyword">let</span> il = arr[<span class="number">0</span>].length;</span><br><span class="line">           <span class="keyword">let</span> jl = arr[<span class="number">1</span>].length; </span><br><span class="line">           <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; il ; i++) &#123;     </span><br><span class="line">               <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; jl; j++) &#123;</span><br><span class="line">                   temp.push(<span class="string">`<span class="subst">$&#123;arr[<span class="number">0</span>][i]&#125;</span><span class="subst">$&#123;arr[<span class="number">1</span>][j]&#125;</span>`</span>)</span><br><span class="line">               &#125;</span><br><span class="line">           &#125; </span><br><span class="line">    				<span class="comment">//替換掉一開始組合的2,3，準備跟下一個繼續尬for迴圈</span></span><br><span class="line">           arr.splice(<span class="number">0</span>, <span class="number">2</span>, temp);</span><br><span class="line">    				<span class="comment">//如果還有長度繼續尬</span></span><br><span class="line">           <span class="keyword">if</span>(arr.length &gt; <span class="number">1</span> )&#123;</span><br><span class="line">               comb(arr)</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    				<span class="comment">//沒有就把陣列返回就好</span></span><br><span class="line">               <span class="keyword">return</span> temp;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">//最後是要返回陣列的第一個組合</span></span><br><span class="line">           <span class="keyword">return</span> arr[<span class="number">0</span>];</span><br><span class="line">             </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> comb(code);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+]]></content>
+      <categories>
+        <category>Leetcode 刷題</category>
+      </categories>
+      <tags>
+        <tag>JavaScript</tag>
+        <tag>Leetcode</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Leetcode No. 725. Split Linked List in Parts 📒</title>
+    <url>/2021/06/23/Leetcode%20No.725.%20Split%20Linked%20List%20in%20Parts/</url>
+    <content><![CDATA[<blockquote>
+<p>題號：No.725</p>
+<p>類型：LinkedList</p>
+<p>難度：medium</p>
+<p>使用語言：JavaScript</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="題目"><a class="header-anchor" href="#題目">¶</a>題目</h3>
+<p>Given the head of a singly linked list and an integer k, split the linked list into k consecutive linked list parts.</p>
+<p>The length of each part should be as equal as possible: no two parts should have a size differing by more than one. This may lead to some parts being null.</p>
+<p>The parts should be in the order of occurrence in the input list, and parts occurring earlier should always have a size greater than or equal to parts occurring later.</p>
+<p>Return an array of the k parts.</p>
+<h5 id="Example-1"><a class="header-anchor" href="#Example-1">¶</a>Example 1:</h5>
+<blockquote>
+<p>範例<br>
+Input: head = [1,2,3], k = 5<br>
+Output: [[1],[2],[3],[],[]]<br>
+Explanation:<br>
+The first element output[0] has output[0].val = 1, output[0].next = null.<br>
+The last element output[4] is null, but its string representation as a ListNode is [].</p>
+</blockquote>
+<h5 id="Example-2"><a class="header-anchor" href="#Example-2">¶</a>Example 2:</h5>
+<blockquote>
+<p>Input: head = [1,2,3,4,5,6,7,8,9,10], k = 3<br>
+Output: [[1,2,3,4],[5,6,7],[8,9,10]]<br>
+Explanation:<br>
+The input has been split into consecutive parts with size difference at most 1, and earlier parts are a larger size than the later parts.</p>
+</blockquote>
+<h6 id="Constraints"><a class="header-anchor" href="#Constraints">¶</a>Constraints:</h6>
+<ul>
+<li>The number of nodes in the list is in the range [0, 1000].</li>
+<li>0 &lt;= Node.val &lt;= 1000</li>
+<li>1 &lt;= k &lt;= 50</li>
+</ul>
+<hr>
+<h3 id="解題切入的知識點"><a class="header-anchor" href="#解題切入的知識點">¶</a>解題切入的知識點</h3>
+<ol>
+<li>LinkedList 長度沒有內建的 function 可以使用，把取得長度的方式記起來!</li>
+<li>有點 tricky 是每組的長度判斷，先取最低值(Math.floor)，判斷剩下個數數量是否要加回數組長度</li>
+<li>放 node 回陣列逐一扣除數組長度後，要 handle 長度剩下 1 的狀況</li>
+<li>需要多宣告一個變數 t2 紀錄當前 head，並把 pointer 指向 null</li>
+</ol>
+<hr>
+<h3 id="解法"><a class="header-anchor" href="#解法">¶</a>解法</h3>
+<p>思考邏輯：</p>
+<ol>
+<li>首先要先求得 LinkedList 中 node 的個數，使用變數 n 紀錄 (沒有方法可以直接取得長度，沒有!!)</li>
+<li>接著要計算分成 k 組數的每組長度要多長，用 Math.floor 取得至少每組要有的個數 (無條件捨去，0.x 個 node 不能算一個)</li>
+<li>接著取得除以 k 組後剩餘的 node 個數</li>
+<li>迴圈從第一個數開始，要先判斷當前組數該放幾個數，判斷方法：剩餘的個數如果 &gt; 0，組數長度+1，扣除一個剩餘組數</li>
+<li>宣告 t1 等於 root</li>
+<li>長度不為0要一直跑 while 迴圈</li>
+<li>handle 假如長度只剩下1，宣告一變數 t2，t2 為當前 root，接著要接當前 root node 向前移動，t2 的 pointer 為 null (因為陣列長度只夠放下一個數字）</li>
+<li>假如長度不為0，root node 向下一個 node 移動，扣掉長度1</li>
+<li>把 t1 放回數組</li>
+</ol>
+<pre><code class="language-/**"> * Definition for singly-linked list.
+ * function ListNode(val, next) {
+ *     this.val = (val===undefined ? 0 : val)
+ *     this.next = (next===undefined ? null : next)
+ * }
+ */
+/**
+ * @param {ListNode} head
+ * @param {number} k
+ * @return {ListNode[]}
+ */
+var splitListToParts = function(head, k) {
+    let temp = head
+    let size = 0 // to record the linkedlist length
+    
+    // get length
+    while(temp){
+        size++
+        temp = temp.next
+    }
+    
+    let len = Math.floor(size / k) // each group length
+    let realLen // to record the real length of each group 
+    let cnt = size % k // remaining nodes
+    let res = [] 
+    
+    for(let i = 0; i&lt;k; i++){
+        if(cnt &gt; 0) {
+            realLen = len + 1
+            cnt --
+        } else {
+            realLen = len
+        }
+        
+        let t1 = head //get the current node
+        
+        while(realLen &gt; 0) { //put val to the array if the length 
+            
+           if(realLen === 1){
+               let t2 = head
+               head = head.next
+               t2.next = null
+           } else {
+               head = head.next //keep iterating to the next node
+           }  
+            realLen --
+        }
+        res.push(t1)
+    }
+    return res
+};
+</code></pre>
 ]]></content>
       <categories>
         <category>Leetcode 刷題</category>
