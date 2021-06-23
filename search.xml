@@ -40,7 +40,7 @@ E. 以上答案皆不正確</p>
 <p>額外補充：<br>
 == 比較兩者的值，=== 較為嚴謹還需比較型態。如果是三個等號的問法，undefined 類型為 undefined，null 類型為 object。</p>
 <h4 id="3-請問-a-的結果是什麼？"><a class="header-anchor" href="#3-請問-a-的結果是什麼？">¶</a>3. 請問 a 的結果是什麼？</h4>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(! <span class="string">"a"</span> <span class="keyword">in</span> <span class="built_in">window</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">alert(a);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">if</span>(! <span class="string">&quot;a&quot;</span> <span class="keyword">in</span> <span class="built_in">window</span>)&#123;</span><br><span class="line">    <span class="keyword">var</span> a = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">alert(a);</span><br></pre></td></tr></table></figure>
 <p>選項：<br>
 A. null<br>
 B. 1<br>
@@ -50,10 +50,10 @@ D. 以上答案皆不正確</p>
 <p>解析：<br>
 先解讀函式，假如變數 a 沒有在 window，就不會進入到條件式中。如果有 a ，a 則等於 1。</p>
 <p>var 宣告變數會被 hoisting，所以這段程式碼應該會是以下這樣：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a</span><br><span class="line"><span class="keyword">if</span>(! <span class="string">"a"</span> <span class="keyword">in</span> <span class="built_in">window</span>)&#123;</span><br><span class="line">    a = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">alert(a);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> a</span><br><span class="line"><span class="keyword">if</span>(! <span class="string">&quot;a&quot;</span> <span class="keyword">in</span> <span class="built_in">window</span>)&#123;</span><br><span class="line">    a = <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line">alert(a);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>a 其實是全域變數，不會進入到條件式中，alert(a)但是 a 尚未被賦值，答案是 undefined。</p>
 <h4 id="4-請給出這段程式碼的執行結果"><a class="header-anchor" href="#4-請給出這段程式碼的執行結果">¶</a>4. 請給出這段程式碼的執行結果?</h4>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bb = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">aa</span>(<span class="params">bb</span>) </span>&#123;</span><br><span class="line">    bb = <span class="number">2</span>;</span><br><span class="line">    alert(bb);</span><br><span class="line">&#125;;</span><br><span class="line">aa(bb);</span><br><span class="line">alert(bb);</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> bb = <span class="number">1</span>;</span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">aa</span>(<span class="params">bb</span>) </span>&#123;</span><br><span class="line">    bb = <span class="number">2</span>;</span><br><span class="line">    alert(bb);</span><br><span class="line">&#125;;</span><br><span class="line">aa(bb);</span><br><span class="line">alert(bb);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>選項：<br>
 A. 11<br>
 B. 12<br>
@@ -63,7 +63,7 @@ D. 22</p>
 <p>解析：<br>
 alert(bb)取全域變數 bb 的值為 1 沒有問題，比較需要思考的是 function aa 裡的 bb。bb 是參數，不是被定義為全局面量，所以並不會覆蓋到 第一行 var bb = 1。</p>
 <p>其實是像這樣：</p>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> bb =<span class="number">1</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">aa</span>(<span class="params">bb</span>) </span>&#123;<span class="comment">// 這裏隱藏了一個宣告變量， var bb；</span></span><br><span class="line"> </span><br><span class="line">   bb = <span class="number">2</span>;<span class="comment">// 對函式作用域進行賦值  bb = 2 ；</span></span><br><span class="line"> </span><br><span class="line">   alert(bb);<span class="comment">//弹出 bb 的值 2；</span></span><br><span class="line"> </span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">aa(bb);</span><br><span class="line"> </span><br><span class="line">alert(bb);<span class="comment">// 根據 RHS 查找變數 bb，變數值為 1</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">var</span> bb =<span class="number">1</span>;</span><br><span class="line"> </span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">aa</span>(<span class="params">bb</span>) </span>&#123;<span class="comment">// 這裏隱藏了一個宣告變量， var bb；</span></span><br><span class="line"> </span><br><span class="line">   bb = <span class="number">2</span>;<span class="comment">// 對函式作用域進行賦值  bb = 2 ；</span></span><br><span class="line"> </span><br><span class="line">   alert(bb);<span class="comment">//弹出 bb 的值 2；</span></span><br><span class="line"> </span><br><span class="line">&#125;;</span><br><span class="line"> </span><br><span class="line">aa(bb);</span><br><span class="line"> </span><br><span class="line">alert(bb);<span class="comment">// 根據 RHS 查找變數 bb，變數值為 1</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>使用函數的形參形成的私有變量，必須要把這個變量賦值給另外一個變量才可以使用，也就是獲得到形參的值。</p>
 ]]></content>
       <categories>
@@ -82,7 +82,7 @@ alert(bb)取全域變數 bb 的值為 1 沒有問題，比較需要思考的是 
 <p>難度：簡單</p>
 <p>使用語言：JavaScript</p>
 </blockquote>
-<a id="more"></a>
+<span id="more"></span>
 <h3 id="題目"><a class="header-anchor" href="#題目">¶</a>題目</h3>
 <p>Give a string s, count the number of non-empty (contiguous) substrings that have the same number of 0’s and 1’s, and all the 0’s and all the 1’s in these substrings are grouped consecutively.</p>
 <p>Substrings that occur multiple times are counted the number of times they occur.</p>
@@ -118,7 +118,7 @@ Explanation: There are 4 substrings: “10”, “01”, “10”, “01” that
 <li>對於表達式對象的 exec 方法，不加入 g，則只返回第一個匹配，無論執行多少次均是如此，如果加入 g，則第一次執行也返回第一個匹配，再執行返回第二個匹配，依次類推。</li>
 </ul>
 </li>
-<li>數組常用操作方法: <a href="https://juejin.im/post/59f848026fb9a0450167420a" target="_blank" rel="noopener">https://juejin.im/post/59f848026fb9a0450167420a</a></li>
+<li>數組常用操作方法: <a href="https://juejin.im/post/59f848026fb9a0450167420a">https://juejin.im/post/59f848026fb9a0450167420a</a></li>
 </ul>
 <hr>
 <ol>
@@ -128,7 +128,7 @@ Explanation: There are 4 substrings: “10”, “01”, “10”, “01” that
 </ul>
 </li>
 </ol>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">push()、pop()、unshift()、shift()</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">push()、pop()、unshift()、shift() </span><br></pre></td></tr></table></figure>
 <figure class="highlight js"><table><tr><td class="code"><pre><span class="line">btn[<span class="number">3</span>].onclick =</span><br><span class="line"><span class="function"><span class="keyword">function</span></span></span><br><span class="line"><span class="function">(<span class="params"></span>)</span>&#123;	<span class="keyword">var</span> arr = [<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>]	</span><br><span class="line">arr.pop()	</span><br><span class="line">alert(arr) <span class="comment">//1,2,3,4</span></span><br><span class="line">&#125;<span class="comment">//尾部删除一個</span></span><br></pre></td></tr></table></figure>
 <ol start="2">
 <li>數組頭部添加 <em>unshift()</em> 方法可向數组的開頭增加一個或更多元素，並返回新的長度。語法：<code>JavaScript  arrayObject.unshift(newelement1,newelement2,....,newelementX)</code></li>
@@ -150,7 +150,7 @@ Explanation: There are 4 substrings: “10”, “01”, “10”, “01” that
 <li>記得返回取得的數組</li>
 <li>最後面要返回 function</li>
 </ol>
-<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (str) =&gt; &#123;</span><br><span class="line">        <span class="comment">//建立數字對應字母</span></span><br><span class="line">        <span class="keyword">let</span> map =[<span class="string">''</span>,<span class="number">1</span>, <span class="string">'abc'</span>, <span class="string">'def'</span>, <span class="string">'ghi'</span>, <span class="string">'jkl'</span>, <span class="string">'mno'</span>, <span class="string">'pqrs'</span>, <span class="string">'tux'</span>, <span class="string">'wxyz'</span>]</span><br><span class="line">        <span class="comment">//把輸入字串按照單字分隔，234=&gt;2,3,4</span></span><br><span class="line">        <span class="keyword">let</span> num = str.split(<span class="string">''</span>);</span><br><span class="line">        <span class="comment">// 保存鍵盤映射的字母內容，23=&gt;[abc, def]</span></span><br><span class="line">        <span class="keyword">let</span> code = []</span><br><span class="line">        num.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(map[item])&#123;</span><br><span class="line">                code.push(map[item])</span><br><span class="line">            &#125;       </span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="built_in">console</span>.log(code);</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">let</span> comb = <span class="function">(<span class="params">arr</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">//臨時變量，用來保存前兩個組合的結果</span></span><br><span class="line">           <span class="keyword">let</span> temp = []; </span><br><span class="line">           <span class="comment">// 最外層的循環式是跑遍第一個元素，第二個循環是跑遍第二個元素</span></span><br><span class="line">           <span class="keyword">let</span> il = arr[<span class="number">0</span>].length;</span><br><span class="line">           <span class="keyword">let</span> jl = arr[<span class="number">1</span>].length; </span><br><span class="line">           <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; il ; i++) &#123;     </span><br><span class="line">               <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; jl; j++) &#123;</span><br><span class="line">                   temp.push(<span class="string">`<span class="subst">$&#123;arr[<span class="number">0</span>][i]&#125;</span><span class="subst">$&#123;arr[<span class="number">1</span>][j]&#125;</span>`</span>)</span><br><span class="line">               &#125;</span><br><span class="line">           &#125; </span><br><span class="line">    				<span class="comment">//替換掉一開始組合的2,3，準備跟下一個繼續尬for迴圈</span></span><br><span class="line">           arr.splice(<span class="number">0</span>, <span class="number">2</span>, temp);</span><br><span class="line">    				<span class="comment">//如果還有長度繼續尬</span></span><br><span class="line">           <span class="keyword">if</span>(arr.length &gt; <span class="number">1</span> )&#123;</span><br><span class="line">               comb(arr)</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    				<span class="comment">//沒有就把陣列返回就好</span></span><br><span class="line">               <span class="keyword">return</span> temp;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">//最後是要返回陣列的第一個組合</span></span><br><span class="line">           <span class="keyword">return</span> arr[<span class="number">0</span>];</span><br><span class="line">             </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> comb(code);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> (str) =&gt; &#123;</span><br><span class="line">        <span class="comment">//建立數字對應字母</span></span><br><span class="line">        <span class="keyword">let</span> map =[<span class="string">&#x27;&#x27;</span>,<span class="number">1</span>, <span class="string">&#x27;abc&#x27;</span>, <span class="string">&#x27;def&#x27;</span>, <span class="string">&#x27;ghi&#x27;</span>, <span class="string">&#x27;jkl&#x27;</span>, <span class="string">&#x27;mno&#x27;</span>, <span class="string">&#x27;pqrs&#x27;</span>, <span class="string">&#x27;tux&#x27;</span>, <span class="string">&#x27;wxyz&#x27;</span>]</span><br><span class="line">        <span class="comment">//把輸入字串按照單字分隔，234=&gt;2,3,4</span></span><br><span class="line">        <span class="keyword">let</span> num = str.split(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">        <span class="comment">// 保存鍵盤映射的字母內容，23=&gt;[abc, def]</span></span><br><span class="line">        <span class="keyword">let</span> code = []</span><br><span class="line">        num.forEach(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</span><br><span class="line">            <span class="keyword">if</span>(map[item])&#123;</span><br><span class="line">                code.push(map[item])</span><br><span class="line">            &#125;       </span><br><span class="line">        &#125;);</span><br><span class="line">        <span class="built_in">console</span>.log(code);</span><br><span class="line">    </span><br><span class="line">        <span class="keyword">let</span> comb = <span class="function">(<span class="params">arr</span>) =&gt;</span> &#123;</span><br><span class="line">            <span class="comment">//臨時變量，用來保存前兩個組合的結果</span></span><br><span class="line">           <span class="keyword">let</span> temp = []; </span><br><span class="line">           <span class="comment">// 最外層的循環式是跑遍第一個元素，第二個循環是跑遍第二個元素</span></span><br><span class="line">           <span class="keyword">let</span> il = arr[<span class="number">0</span>].length;</span><br><span class="line">           <span class="keyword">let</span> jl = arr[<span class="number">1</span>].length; </span><br><span class="line">           <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; il ; i++) &#123;     </span><br><span class="line">               <span class="keyword">for</span> (<span class="keyword">let</span> j = <span class="number">0</span>; j &lt; jl; j++) &#123;</span><br><span class="line">                   temp.push(<span class="string">`<span class="subst">$&#123;arr[<span class="number">0</span>][i]&#125;</span><span class="subst">$&#123;arr[<span class="number">1</span>][j]&#125;</span>`</span>)</span><br><span class="line">               &#125;</span><br><span class="line">           &#125; </span><br><span class="line">    				<span class="comment">//替換掉一開始組合的2,3，準備跟下一個繼續尬for迴圈</span></span><br><span class="line">           arr.splice(<span class="number">0</span>, <span class="number">2</span>, temp);</span><br><span class="line">    				<span class="comment">//如果還有長度繼續尬</span></span><br><span class="line">           <span class="keyword">if</span>(arr.length &gt; <span class="number">1</span> )&#123;</span><br><span class="line">               comb(arr)</span><br><span class="line">           &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    				<span class="comment">//沒有就把陣列返回就好</span></span><br><span class="line">               <span class="keyword">return</span> temp;</span><br><span class="line">           &#125;</span><br><span class="line">           <span class="comment">//最後是要返回陣列的第一個組合</span></span><br><span class="line">           <span class="keyword">return</span> arr[<span class="number">0</span>];</span><br><span class="line">             </span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> comb(code);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>Leetcode 刷題</category>
@@ -169,7 +169,7 @@ Explanation: There are 4 substrings: “10”, “01”, “10”, “01” that
 <p>難度：medium</p>
 <p>使用語言：JavaScript</p>
 </blockquote>
-<a id="more"></a>
+<span id="more"></span>
 <h3 id="題目"><a class="header-anchor" href="#題目">¶</a>題目</h3>
 <p>Given the head of a singly linked list and an integer k, split the linked list into k consecutive linked list parts.</p>
 <p>The length of each part should be as equal as possible: no two parts should have a size differing by more than one. This may lead to some parts being null.</p>
@@ -220,56 +220,56 @@ The input has been split into consecutive parts with size difference at most 1, 
 <li>把 t1 放回數組</li>
 </ol>
 <pre><code class="language-/**"> * Definition for singly-linked list.
- * function ListNode(val, next) {
+ * function ListNode(val, next) &#123;
  *     this.val = (val===undefined ? 0 : val)
  *     this.next = (next===undefined ? null : next)
- * }
+ * &#125;
  */
 /**
- * @param {ListNode} head
- * @param {number} k
- * @return {ListNode[]}
+ * @param &#123;ListNode&#125; head
+ * @param &#123;number&#125; k
+ * @return &#123;ListNode[]&#125;
  */
-var splitListToParts = function(head, k) {
+var splitListToParts = function(head, k) &#123;
     let temp = head
     let size = 0 // to record the linkedlist length
     
     // get length
-    while(temp){
+    while(temp)&#123;
         size++
         temp = temp.next
-    }
+    &#125;
     
     let len = Math.floor(size / k) // each group length
     let realLen // to record the real length of each group 
     let cnt = size % k // remaining nodes
     let res = [] 
     
-    for(let i = 0; i&lt;k; i++){
-        if(cnt &gt; 0) {
+    for(let i = 0; i&lt;k; i++)&#123;
+        if(cnt &gt; 0) &#123;
             realLen = len + 1
             cnt --
-        } else {
+        &#125; else &#123;
             realLen = len
-        }
+        &#125;
         
         let t1 = head //get the current node
         
-        while(realLen &gt; 0) { //put val to the array if the length 
+        while(realLen &gt; 0) &#123; //put val to the array if the length 
             
-           if(realLen === 1){
+           if(realLen === 1)&#123;
                let t2 = head
                head = head.next
                t2.next = null
-           } else {
+           &#125; else &#123;
                head = head.next //keep iterating to the next node
-           }  
+           &#125;  
             realLen --
-        }
+        &#125;
         res.push(t1)
-    }
+    &#125;
     return res
-};
+&#125;;
 </code></pre>
 ]]></content>
       <categories>
@@ -285,14 +285,14 @@ var splitListToParts = function(head, k) {
     <url>/2020/04/19/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-Array-Tuple-%E5%92%8C-interface-%E4%BD%BF%E7%94%A8/</url>
     <content><![CDATA[<h3 id="Array"><a class="header-anchor" href="#Array">¶</a>Array</h3>
 <p>可以將陣列的元素強制定義為某一個特定的類型，只要在類型的後面加上陣列的括號 [] 即可。</p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 陣列裡面全部要是數字</span></span><br><span class="line"><span class="keyword">let</span> arrOFNumber: <span class="built_in">number</span>[] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">arrOFNumber.push(<span class="number">5</span>)</span><br><span class="line">arrOFNumber.push(<span class="string">'str'</span>) <span class="comment">//會報錯</span></span><br></pre></td></tr></table></figure>
-<a id="more"></a>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 陣列裡面全部要是數字</span></span><br><span class="line"><span class="keyword">let</span> arrOFNumber: <span class="built_in">number</span>[] = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</span><br><span class="line">arrOFNumber.push(<span class="number">5</span>)</span><br><span class="line">arrOFNumber.push(<span class="string">&#x27;str&#x27;</span>) <span class="comment">//會報錯</span></span><br></pre></td></tr></table></figure>
+<span id="more"></span>
 <h3 id="Tuple"><a class="header-anchor" href="#Tuple">¶</a>Tuple</h3>
 <p>Tuple的中文可以翻成「元組」，學過 Python 的人對這個資料結構應該比較熟悉。</p>
 <blockquote>
 <p>應用狀況：陣列裡包含除了某特定元素外的類型</p>
 </blockquote>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> users: [<span class="built_in">string</span>, <span class="built_in">number</span>] = [<span class="string">'emma'</span>, <span class="number">20</span>]</span><br><span class="line">user = [<span class="string">'Andy'</span>, <span class="number">2</span>, <span class="literal">true</span>] <span class="comment">// true為布林值，會報錯</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> users: [<span class="built_in">string</span>, <span class="built_in">number</span>] = [<span class="string">&#x27;emma&#x27;</span>, <span class="number">20</span>]</span><br><span class="line">user = [<span class="string">&#x27;Andy&#x27;</span>, <span class="number">2</span>, <span class="literal">true</span>] <span class="comment">// true為布林值，會報錯</span></span><br></pre></td></tr></table></figure>
 <h3 id="Object"><a class="header-anchor" href="#Object">¶</a>Object</h3>
 <h4 id="TypeScript-的-Interface"><a class="header-anchor" href="#TypeScript-的-Interface">¶</a>TypeScript 的 Interface:</h4>
 <ol>
@@ -300,16 +300,16 @@ var splitListToParts = function(head, k) {
 <li>對類(class)進行抽象。</li>
 <li>Duck typing：動態類型語言會推測資料的型別，比起關注資料類型，更加在意資料如何被使用。</li>
 </ol>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 建議 class 的字首大寫表示為 interface</span></span><br><span class="line"><span class="comment">// 注意使用分號「;」結尾</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">	name: <span class="built_in">string</span>;</span><br><span class="line">	age: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 不能減少或是增加屬性，否則會報錯</span></span><br><span class="line"><span class="keyword">let</span> emma: Person = &#123;</span><br><span class="line">	name: <span class="string">'emma'</span>,</span><br><span class="line">	age: <span class="number">20</span>,</span><br><span class="line">	gender: <span class="string">'female'</span> <span class="comment">//報錯</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 建議 class 的字首大寫表示為 interface</span></span><br><span class="line"><span class="comment">// 注意使用分號「;」結尾</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">	<span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">	age: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 不能減少或是增加屬性，否則會報錯</span></span><br><span class="line"><span class="keyword">let</span> emma: Person = &#123;</span><br><span class="line">	<span class="attr">name</span>: <span class="string">&#x27;emma&#x27;</span>,</span><br><span class="line">	<span class="attr">age</span>: <span class="number">20</span>,</span><br><span class="line">	<span class="attr">gender</span>: <span class="string">&#x27;female&#x27;</span> <span class="comment">//報錯</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h4 id="可選屬性"><a class="header-anchor" href="#可選屬性">¶</a>可選屬性</h4>
 <p>如果 interface 只能依照上面方法使用會沒有彈性。因此可選屬性能夠幫忙解決這個問題，有或沒有都不影響。</p>
 <p><strong>使用方法：在變數名稱後面加上問號</strong></p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">	name: <span class="built_in">string</span>;</span><br><span class="line">	age?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">	<span class="attr">name</span>: <span class="built_in">string</span>;</span><br><span class="line">	age?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h4 id="唯讀屬性"><a class="header-anchor" href="#唯讀屬性">¶</a>唯讀屬性</h4>
 <p>複製 class 的時候才使用，只能用在屬性上，且不能被更改賦予的值。</p>
 <p><strong>使用方法：在變數名稱前加上 readonly</strong></p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">	readonly id: <span class="built_in">number</span>;</span><br><span class="line">	name: <span class="built_in">string</span>;</span><br><span class="line">	age?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">interface</span> Person &#123;</span><br><span class="line">	<span class="keyword">readonly</span> id: <span class="built_in">number</span>;</span><br><span class="line">	name: <span class="built_in">string</span>;</span><br><span class="line">	age?: <span class="built_in">number</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>強制更改值的話會報錯</p>
 <p><img src="https://upload.cc/i1/2020/04/19/ZxnP7i.png" alt="example"></p>
 ]]></content>
@@ -324,7 +324,7 @@ var splitListToParts = function(head, k) {
     <title>TypeScript 學習系列 | 什麼是 TypeScript？ 類型有哪些？</title>
     <url>/2020/04/19/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-%E4%BB%80%E9%BA%BC%E6%98%AF-TypeScript%EF%BC%9F-%E9%A1%9E%E5%9E%8B%E6%9C%89%E5%93%AA%E4%BA%9B%EF%BC%9F/</url>
     <content><![CDATA[<p>為什麼要使用 TypeScript 呢？好處在於掌握輸入和輸出的數值以及類型，編寫的時候即時顯示提供錯誤，輸入的參數也可以先定義好，避免踩到不清楚資料型別時的坑，比如資料等於 0 是數字還是布林值這種。</p>
-<a id="more"></a>
+<span id="more"></span>
 <h4 id="程式語言類型有以下兩種："><a class="header-anchor" href="#程式語言類型有以下兩種：">¶</a>程式語言類型有以下兩種：</h4>
 <blockquote>
 <p>動態類型語言：執行期間才會檢查數據，初始化時不用給定型態或變量，ex: JavaScript, Ruby, Python<br>
@@ -343,9 +343,9 @@ var splitListToParts = function(head, k) {
 <p>第一個 TypeScript 檔案就從 Hello World 開始吧！<br>
 建立檔案的時候，不要忘記檔名是 <em>.ts</em> 結尾。</p>
 <p>使用方法不難，在變數後方指定傳入的類型，如果傳入的是數字或是非字串等類型，編輯器就會報錯</p>
-<pre><code>const hello = (name: string) =&gt; {
-	return `hello ${name}`
-}
+<pre><code>const hello = (name: string) =&gt; &#123;
+	return `hello $&#123;name&#125;`
+&#125;
 
 hello('emma')
 </code></pre>
@@ -363,19 +363,19 @@ hello('emma')
 </ul>
 <p>為什麼叫做原始值呢？本身的值無法被改變，例如操作字串一定會返回一個新的字串，原始字串並沒有被改變。</p>
 <p>TypeScript 定義類型的方法很簡單，如前面提到在變數後面加上冒號和型別類型即可。以下是範例</p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> isDone: <span class="built_in">boolean</span> = <span class="literal">false</span></span><br><span class="line"><span class="keyword">let</span> age: <span class="built_in">number</span> = <span class="number">20</span></span><br><span class="line"><span class="keyword">let</span> binaryNumebr: <span class="built_in">number</span> = <span class="number">0b1111</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//  ES6中："0b"開頭表示將二進位轉成十進位</span></span><br><span class="line"><span class="comment">//  其他進位表示：</span></span><br><span class="line"><span class="comment">//  八進位: 010(ES5.1); 0o10(ES6)</span></span><br><span class="line"><span class="comment">//  十六進位: 0x10(ES5.1)</span></span><br><span class="line"><span class="comment">//  二進位: 0b10(ES6)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> firstName: <span class="built_in">string</span> = <span class="string">'emma'</span></span><br><span class="line"><span class="keyword">let</span> message: <span class="built_in">string</span> = <span class="string">`Hello, <span class="subst">$&#123;firstName&#125;</span>, age is <span class="subst">$&#123;age&#125;</span>`</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 以下兩個為所有類型的子類型，意思為可以被賦值給其他類型</span></span><br><span class="line"><span class="keyword">let</span> u: <span class="literal">undefined</span> = <span class="literal">undefined</span></span><br><span class="line"><span class="keyword">let</span> n: <span class="literal">null</span> = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> num: <span class="built_in">number</span> = <span class="literal">undefined</span></span><br><span class="line"><span class="comment">// undefined 的變量可以賦值給 number</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> isDone: <span class="built_in">boolean</span> = <span class="literal">false</span></span><br><span class="line"><span class="keyword">let</span> age: <span class="built_in">number</span> = <span class="number">20</span></span><br><span class="line"><span class="keyword">let</span> binaryNumebr: <span class="built_in">number</span> = <span class="number">0b1111</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//  ES6中：&quot;0b&quot;開頭表示將二進位轉成十進位</span></span><br><span class="line"><span class="comment">//  其他進位表示：</span></span><br><span class="line"><span class="comment">//  八進位: 010(ES5.1); 0o10(ES6)</span></span><br><span class="line"><span class="comment">//  十六進位: 0x10(ES5.1)</span></span><br><span class="line"><span class="comment">//  二進位: 0b10(ES6)</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> firstName: <span class="built_in">string</span> = <span class="string">&#x27;emma&#x27;</span></span><br><span class="line"><span class="keyword">let</span> message: <span class="built_in">string</span> = <span class="string">`Hello, <span class="subst">$&#123;firstName&#125;</span>, age is <span class="subst">$&#123;age&#125;</span>`</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 以下兩個為所有類型的子類型，意思為可以被賦值給其他類型</span></span><br><span class="line"><span class="keyword">let</span> u: <span class="literal">undefined</span> = <span class="literal">undefined</span></span><br><span class="line"><span class="keyword">let</span> n: <span class="literal">null</span> = <span class="literal">null</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> num: <span class="built_in">number</span> = <span class="literal">undefined</span></span><br><span class="line"><span class="comment">// undefined 的變量可以賦值給 number</span></span><br></pre></td></tr></table></figure>
 <hr>
 <h4 id="any類型和聯合類型"><a class="header-anchor" href="#any類型和聯合類型">¶</a>any類型和聯合類型</h4>
 <h5 id="any-允許賦值為任意類型"><a class="header-anchor" href="#any-允許賦值為任意類型">¶</a>any: 允許賦值為任意類型</h5>
 <blockquote>
 <p>應用狀況：不曉得原本的資料類型，例如接API傳回來的資料。應該盡量避免使用，變數的型別可以輕易被改變，另外記得返回類型一定會是any。</p>
 </blockquote>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> notSure: <span class="built_in">any</span> = <span class="number">4</span></span><br><span class="line">notSure = <span class="string">'maybe it is a string'</span></span><br><span class="line">notSure = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 屬型和方法也可以被調用</span></span><br><span class="line">notSure.myName</span><br><span class="line">notSure.getName()</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> notSure: <span class="built_in">any</span> = <span class="number">4</span></span><br><span class="line">notSure = <span class="string">&#x27;maybe it is a string&#x27;</span></span><br><span class="line">notSure = <span class="literal">true</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 屬型和方法也可以被調用</span></span><br><span class="line">notSure.myName</span><br><span class="line">notSure.getName()</span><br></pre></td></tr></table></figure>
 <h5 id="聯合類型"><a class="header-anchor" href="#聯合類型">¶</a>聯合類型</h5>
 <blockquote>
 <p>應用狀況：只能使用特定允許的類型</p>
 </blockquote>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> numberOrString: <span class="built_in">number</span> | <span class="built_in">string</span> = <span class="number">234</span></span><br><span class="line">numberOrString = <span class="string">'abc'</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">let</span> numberOrString: <span class="built_in">number</span> | <span class="built_in">string</span> = <span class="number">234</span></span><br><span class="line">numberOrString = <span class="string">&#x27;abc&#x27;</span></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>TypeScript學習筆記</category>
@@ -389,19 +389,19 @@ hello('emma')
     <url>/2020/06/03/TypeScript-%E5%AD%B8%E7%BF%92%E7%B3%BB%E5%88%97-%E5%87%BD%E5%BC%8F%E6%8E%A8%E6%96%B7%E8%88%87%E9%A1%9E(class)%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%9F/</url>
     <content><![CDATA[<h3 id="Function-函式"><a class="header-anchor" href="#Function-函式">¶</a>Function 函式</h3>
 <p>在參數位置定義參數類別，返回值則是在括號後方加上冒號及其型別，可選參數可被放在參數最後一個。</p>
-<a id="more"></a>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 函式宣告式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span>, z?: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 可選參數必須被放在最後一個</span></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">typeof</span> z === <span class="string">'number'</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y + z</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> result = add(<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<span id="more"></span>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 函式宣告式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span>, z?: <span class="built_in">number</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 可選參數必須被放在最後一個</span></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">typeof</span> z === <span class="string">&#x27;number&#x27;</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y + z</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> result = add(<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
 <!--more-->
 <p>也可以把參數 z 寫成這樣子：<br>
 z = 10，默認 z 為 number 的寫法（ES6)</p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 函式宣告式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span>, z: <span class="built_in">number</span> = 10</span>): <span class="title">number</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">typeof</span> z === <span class="string">'number'</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y + z</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> result = add(<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 函式宣告式</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">add</span>(<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span>, z: <span class="built_in">number</span> = <span class="number">10</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">typeof</span> z === <span class="string">&#x27;number&#x27;</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y + z</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> result = add(<span class="number">2</span>, <span class="number">3</span>, <span class="number">5</span>)</span><br></pre></td></tr></table></figure>
 <p>寫成函示表達式的話就是這樣子：</p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> add = <span class="function"><span class="keyword">function</span> (<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span>, z: <span class="built_in">number</span> = 10</span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">typeof</span> z === <span class="string">'number'</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y + z</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">const</span> add = <span class="function"><span class="keyword">function</span> (<span class="params">x: <span class="built_in">number</span>, y: <span class="built_in">number</span>, z: <span class="built_in">number</span> = <span class="number">10</span></span>): <span class="title">number</span> </span>&#123;</span><br><span class="line">	<span class="keyword">if</span> (<span class="keyword">typeof</span> z === <span class="string">&#x27;number&#x27;</span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y + z</span><br><span class="line">	&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> x + y</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>把滑鼠移到變數 add 上看，TypeScript 會默認成函式類型，想要賦值成其他類型會報錯<br>
 <img src="https://upload.cc/i1/2020/06/03/iNTOY5.png" alt="example"><br>
 <img src="https://upload.cc/i1/2020/06/03/r5x6hH.png" alt="example"></p>
 <p>要將變數定義為函式類別，寫法如下，注意箭頭為 TS 返回聲明函數的值的方法，不是箭頭函示的箭頭～</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">const add2: (x: number, y: number, z?: number) &#x3D;&gt; number &#x3D; add</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">const add2: (x: number, y: number, z?: number) =&gt; number = add</span><br></pre></td></tr></table></figure>
 <hr>
 <blockquote>
 <p>Tips: 直接在 node 環境上看 TS 檔案 console 結果的方法</p>
@@ -415,13 +415,13 @@ z = 10，默認 z 為 number 的寫法（ES6)</p>
 <h3 id="Class-類"><a class="header-anchor" href="#Class-類">¶</a>Class 類</h3>
 <p>接下來會講到 class 父類別和子類別的方法，如果有學過 Java OOP 概念的人，在這部分應該會理解比較快，主要是其中最重要的三個觀念：封裝、繼承、多形。</p>
 <p>封裝主要是不讓外部直接取得變數，但可以透過內部方法調用取得值。繼承的話，子類別可以從父類別取得其屬性和方法，也可以加上自己的屬性或方法覆寫。多形可以想像成繼承的方法，其本質不一樣，例如動物會叫，叫的聲音卻不一樣，透過多形的寫法，繼承父類別叫的方法，在子類別中 overriding(覆寫) 可以執行獲得不同的叫聲。</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&#x2F;&#x2F; 先做出一個動物的 class</span><br><span class="line"></span><br><span class="line">class Animal &#123;</span><br><span class="line">	name: string;</span><br><span class="line">		constructor(name: string) &#123;</span><br><span class="line">		this.name &#x3D; name</span><br><span class="line">	&#125;</span><br><span class="line">	run() &#123;</span><br><span class="line">		return &#96;$&#123;this.name&#125; is running&#96;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">// 先做出一個動物的 class</span><br><span class="line"></span><br><span class="line">class Animal &#123;</span><br><span class="line">	name: string;</span><br><span class="line">		constructor(name: string) &#123;</span><br><span class="line">		this.name = name</span><br><span class="line">	&#125;</span><br><span class="line">	run() &#123;</span><br><span class="line">		return `$&#123;this.name&#125; is running`</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>接著利用動物這個類別創造出物件，比如熊🐻，父類別裡面有 run 這個方法，子類別可以繼承並且使用。</p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> bear = <span class="keyword">new</span> Animal(<span class="string">'Winne'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(bear())</span><br><span class="line"><span class="comment">// Winne is running</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"><span class="keyword">const</span> bear = <span class="keyword">new</span> Animal(<span class="string">&#x27;Winne&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(bear())</span><br><span class="line"><span class="comment">// Winne is running</span></span><br></pre></td></tr></table></figure>
 <p>前面提到子類別可以自行增加方法，使用 extends 表示繼承 Animal 這個 class，下面的範例是創造出狗🐶的物件當例子，並且自行加上 bark 這個方法。</p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> Dog <span class="keyword">extends</span> Animal &#123;</span><br><span class="line">	bark() &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> is barking`</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> baobao = <span class="keyword">new</span> Dog(<span class="string">'baobao'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(baobao.run()) <span class="comment">// baobao.run is running</span></span><br><span class="line"><span class="built_in">console</span>.log(baobao.bark()) <span class="comment">// baobao.run is barking</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">	<span class="function"><span class="title">bark</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="built_in">this</span>.name&#125;</span> is barking`</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> baobao = <span class="keyword">new</span> Dog(<span class="string">&#x27;baobao&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(baobao.run()) <span class="comment">// baobao.run is running</span></span><br><span class="line"><span class="built_in">console</span>.log(baobao.bark()) <span class="comment">// baobao.run is barking</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <p>前面有提到，雖然動物都會叫，可是叫聲可能會不一樣，接下來要提到多形(polymorphism)的概念和方法。在貓咪類別中利用父類別的 run 方法，加上子類別自己特別的行為。允許在程式上只要制定好一個類別，能使用來操作不同物件。</p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> Cat <span class="keyword">extends</span> Animal &#123;</span><br><span class="line">	<span class="comment">// 指到父類別的變數，需要使用 super</span></span><br><span class="line">	<span class="keyword">constructor</span>(<span class="params">name</span>) &#123;</span><br><span class="line">		<span class="keyword">super</span>(name)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// overriding 貓咪叫聲</span></span><br><span class="line">	run() &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">'Meow, '</span> + <span class="keyword">super</span>.run()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> maomao = <span class="keyword">new</span> Cat(<span class="string">'maomao'</span>)</span><br><span class="line"><span class="built_in">console</span>.log(maomao.run())</span><br><span class="line"><span class="comment">//Meow, maomao is running</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Cat</span> <span class="keyword">extends</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">	<span class="comment">// 指到父類別的變數，需要使用 super</span></span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params">name</span>)</span> &#123;</span><br><span class="line">		<span class="built_in">super</span>(name)</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="comment">// overriding 貓咪叫聲</span></span><br><span class="line">	<span class="function"><span class="title">run</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">&#x27;Meow, &#x27;</span> + <span class="built_in">super</span>.run()</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> maomao = <span class="keyword">new</span> Cat(<span class="string">&#x27;maomao&#x27;</span>)</span><br><span class="line"><span class="built_in">console</span>.log(maomao.run())</span><br><span class="line"><span class="comment">//Meow, maomao is running</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h4 id="Class-修飾符"><a class="header-anchor" href="#Class-修飾符">¶</a>Class 修飾符</h4>
 <blockquote>
 <p>修飾符包含：public, private, protected, readonly。使用修飾符是為了對變數和方法進行權限的管理，不讓自己類別外的成員任意調用或是改變值。</p>
@@ -429,13 +429,13 @@ z = 10，默認 z 為 number 的寫法（ES6)</p>
 <h5 id="1-public"><a class="header-anchor" href="#1-public">¶</a>1. public</h5>
 <p>public 顧名思義就是公開，可以公開被讀取和寫入。<br>
 以剛剛的例子來說，可以在 name 之前加上修飾符 private，那麼創造出來的物件就無法任意改動 name 的值。</p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> Animal &#123;</span><br><span class="line">	<span class="keyword">private</span> name: <span class="built_in">string</span>;</span><br><span class="line">		<span class="keyword">constructor</span>(<span class="params">name: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name</span><br><span class="line">	&#125;</span><br><span class="line">	run() &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> is running`</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">snake.name = <span class="string">'Eric'</span> <span class="comment">// 會報錯</span></span><br><span class="line"><span class="built_in">console</span>.log(snake.name)</span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">	<span class="keyword">private</span> name: <span class="built_in">string</span>;</span><br><span class="line">		<span class="function"><span class="title">constructor</span>(<span class="params">name: <span class="built_in">string</span></span>)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.name = name</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="title">run</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="built_in">this</span>.name&#125;</span> is running`</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">snake.name = <span class="string">&#x27;Eric&#x27;</span> <span class="comment">// 會報錯</span></span><br><span class="line"><span class="built_in">console</span>.log(snake.name)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 <h5 id="2-private-protected-readonly"><a class="header-anchor" href="#2-private-protected-readonly">¶</a>2. private / protected / readonly</h5>
 <p>將 name 的權限設成 private，所以只有自身類別可以存取使用。那如果希望可以被子類別訪問呢？則可以使用 protected。 最後 readonly 則是只能取得值而無法被更改。</p>
 <p><img src="https://upload.cc/i1/2020/06/04/ZmvnCQ.png" alt="example"></p>
 <h5 id="3-static"><a class="header-anchor" href="#3-static">¶</a>3. static</h5>
 <p>static 屬於不會被實例化的屬性，也可以稱作靜態方法，假如類的定義和實例沒有太大關係，可以寫成靜態方法。</p>
-<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">class</span> Animal &#123;</span><br><span class="line">	readonly name: <span class="built_in">string</span>;</span><br><span class="line">	<span class="comment">// 靜態方法</span></span><br><span class="line">	<span class="keyword">static</span> categories: <span class="built_in">string</span>[] = [<span class="string">'mammal'</span>, <span class="string">'bird'</span>]</span><br><span class="line">	<span class="keyword">static</span> isAnimal(a) &#123;</span><br><span class="line">		<span class="keyword">return</span> a <span class="keyword">instanceof</span> Animal</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">constructor</span>(<span class="params">name: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">		<span class="keyword">this</span>.name = name</span><br><span class="line">	&#125;</span><br><span class="line">	run() &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="keyword">this</span>.name&#125;</span> is running`</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Animal.categories) <span class="comment">//[ 'mammal', 'bird' ]</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.isAnimal(snake)) <span class="comment">//true</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight typescript"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Animal</span> </span>&#123;</span><br><span class="line">	<span class="keyword">readonly</span> name: <span class="built_in">string</span>;</span><br><span class="line">	<span class="comment">// 靜態方法</span></span><br><span class="line">	<span class="keyword">static</span> categories: <span class="built_in">string</span>[] = [<span class="string">&#x27;mammal&#x27;</span>, <span class="string">&#x27;bird&#x27;</span>]</span><br><span class="line">	<span class="keyword">static</span> <span class="function"><span class="title">isAnimal</span>(<span class="params">a</span>)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> a <span class="keyword">instanceof</span> Animal</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="title">constructor</span>(<span class="params">name: <span class="built_in">string</span></span>)</span> &#123;</span><br><span class="line">		<span class="built_in">this</span>.name = name</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="title">run</span>(<span class="params"></span>)</span> &#123;</span><br><span class="line">		<span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;<span class="built_in">this</span>.name&#125;</span> is running`</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(Animal.categories) <span class="comment">//[ &#x27;mammal&#x27;, &#x27;bird&#x27; ]</span></span><br><span class="line"><span class="built_in">console</span>.log(Animal.isAnimal(snake)) <span class="comment">//true</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 ]]></content>
       <categories>
         <category>TypeScript學習筆記</category>
